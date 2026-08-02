@@ -4,8 +4,8 @@ title: "Conservation-Guided Classification of Long-Range Correlations in QFT"
 authors:
   - family-names: Guo
     given-names: Jinku
-repository-code: "https://github.com/CGC-Project/CGC"
-url: "https://github.com/CGC-Project/CGC"
+repository-code: "https://github.com/bookwormseagull1980/Conservation-Guided-Classification"
+url: "https://github.com/bookwormseagull1980/Conservation-Guided-Classification"
 abstract: "A conservation-law-based classification framework for long-range correlations in quantum field theory."
 license: MIT
 type: software

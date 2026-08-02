@@ -112,7 +112,7 @@ Usage: cgc-benchmark [--layer {L0|L1|L2|L4|STABILITY|all}] [--verbose]
 ### From Source
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/bookwormseagull1980/Conservation-Guided-Classification.git
 cd Conservation-Guided-Classification
 pip install -e ".[dev]"
 ```
