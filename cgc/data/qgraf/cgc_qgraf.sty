@@ -1,0 +1,30 @@
+%
+% CGC QGRAF style file
+% Output format: machine-parsable diagram descriptor
+%
+% Format specification:
+%   <header>   → diagram_count
+%   <diagram>  → diagram_index \n n_v n_p n_1pi \n vertices... \n propagators...
+%   <back>     → blank line
+%   <epilogue> → empty
+%
+% QGRAF style macro reference:
+%   `diagram_index`     diagram counter
+%   `nv'                number of vertices in this diagram
+%   `np'                number of propagators in this diagram
+%   `n1pi'              number of 1PI subdiagrams
+%   `field(idx)'        field name of vertex idx
+%   `vertex(idx,jdx)'   jdx-th field at vertex idx
+%   `vlist`             list of vertex values
+%   `plist`             list of propagator values
+
+<header>
+<diagram count>
+<back>
+<diagram>
+  `diagram_index'
+  `nv' `np' `n1pi'
+<vertex list>
+<propagator list>
+<back>
+<epilogue>

@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Conservation-Guided Classification of Long-Range Correlations in QFT"
+authors:
+  - family-names: Guo
+    given-names: Jinku
+repository-code: "https://github.com/CGC-Project/CGC"
+url: "https://github.com/CGC-Project/CGC"
+abstract: "A conservation-law-based classification framework for long-range correlations in quantum field theory."
+license: MIT
+type: software

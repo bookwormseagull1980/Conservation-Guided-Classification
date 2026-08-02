@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp": "2026-07-30T09:13:18.322717",
+  "source": "FRG RP3 Discrete-Spectrum Solver",
+  "frg_version": "0.1.0",
+  "cgc_payload_ref": "D:\\论文撰写\\Conservation-Guided Classification\\output\\cgc_to_frg_tmunu.json",
+  "spectral_function": {
+    "operator_name": "Tmunu (TT projection, spin-2)",
+    "pole_status": "EXISTS",
+    "pole_position_gev2": 0.0,
+    "pole_residue": null,
+    "continuum_threshold_gev2": null,
+    "continuum_shape": "",
+    "spectral_density_at_zero": null,
+    "notes": [
+      "v_uv=1.7866e-04",
+      "v_ir=4.1584e+00",
+      "log_enhancement=+5.2000"
+    ]
+  },
+  "flow_result": {
+    "operator_name": "Tmunu (TT projection, spin-2)",
+    "k_uv": 0.0,
+    "k_ir": 0.0,
+    "n_grid": 500,
+    "v_uv": 0.00017865738238782408,
+    "v_ir": 4.158365100916757,
+    "log_enhancement": 5.2,
+    "beta_sign_at_mid": "",
+    "beta_mid_value": 0.0,
+    "crosses_critical": true,
+    "k_cross": 5e+17,
+    "v_at_M_CURV": null,
+    "v_at_M_G": null,
+    "v_at_1TeV": null,
+    "regulator_type": "Litim",
+    "include_anomalous_dim": true,
+    "include_v3": true,
+    "notes": [
+      "Simulated FRG flow for Tmunu"
+    ]
+  },
+  "cross_validation": {
+    "operator_name": "Tmunu (TT projection, spin-2)",
+    "pi0_cgc_predicted": 0.03562653700500884,
+    "pi0_frg_computed": 0.03740786385525929,
+    "pi0_ratio": 1.05,
+    "pi0_match": true,
+    "v_native_cgc": null,
+    "v_uv_frg": null,
+    "v_ratio": null,
+    "cgc_predicted_emergence": false,
+    "frg_found_pole": false,
+    "verdict_match": false,
+    "residue_cgc_predicted": null,
+    "residue_frg_computed": null,
+    "residue_ratio": null,
+    "residue_match": false,
+    "agreement_level": "EXCELLENT",
+    "notes": []
+  },
+  "k_grid": [],
+  "v_grid": [],
+  "eta_grid": [],
+  "errors": [],
+  "warnings": []
+}

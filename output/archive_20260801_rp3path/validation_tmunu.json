@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp": "2026-07-30T09:13:18.322717",
+  "cgc_payload": "D:\\论文撰写\\Conservation-Guided Classification\\output\\cgc_to_frg_tmunu.json",
+  "frg_payload": "D:\\论文撰写\\Conservation-Guided Classification\\output\\frg_to_cgc_tmunu.json",
+  "validation": {
+    "operator_name": "Tmunu (TT projection, spin-2)",
+    "pi0_cgc_predicted": 0.03562653700500884,
+    "pi0_frg_computed": 0.03740786385525929,
+    "pi0_ratio": 1.05,
+    "pi0_match": true,
+    "v_native_cgc": 0.00017865738238782408,
+    "v_uv_frg": 0.00017865738238782408,
+    "v_ratio": 1.0,
+    "cgc_predicted_emergence": true,
+    "frg_found_pole": true,
+    "verdict_match": true,
+    "residue_cgc_predicted": null,
+    "residue_frg_computed": null,
+    "residue_ratio": null,
+    "residue_match": false,
+    "agreement_level": "EXCELLENT",
+    "notes": [
+      "Pi0: CGC=3.5627e-02, FRG=3.7408e-02, ratio=1.0500",
+      "Verdict: CGC=yes, FRG=yes, match=✅",
+      "V_native: CGC=1.7866e-04, FRG=1.7866e-04, ratio=1.0000",
+      "Overall agreement: EXCELLENT"
+    ]
+  },
+  "verdict_match": true,
+  "agreement_level": "EXCELLENT"
+}

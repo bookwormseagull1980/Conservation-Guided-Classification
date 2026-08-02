@@ -1,0 +1,9 @@
+deception_risk: Low
+generated_at: '2026-07-29T01:21:54.545846'
+integrity_violations: []
+verification_results:
+  tier1: pass
+  tier2: skip
+  tier3: pass
+  tier4: pass
+verify_level: 4

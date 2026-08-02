@@ -1,0 +1,17 @@
+# CGC project — Iron Law compliance
+# ====================================
+# 1. ZERO FREE PARAMETERS
+#    The CGC engine classifies diagrams by kinematics and topology only.
+#    No physics constants, no experimental inputs, no fitted parameters.
+#
+# 2. FACTUAL HONESTY
+#    All placeholder code marked with `# PLACEHOLDER` / `# TODO`.
+#    All approximations explicitly documented.
+#
+# 3. STRICT RIGOR
+#    Each module has independent tests with physics benchmarks.
+#    Run: python scripts/cgc-dev verify --level=4
+#
+# 4. NO DECEPTIVE IMPLEMENTATION
+#    No hardcoded experimental values. No forged audit reports.
+#    All values dynamically computed or explicitly marked as TODO.

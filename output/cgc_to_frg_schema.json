@@ -1,0 +1,185 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cgc-framework.org/schema/cgc_to_frg/v1.0.0",
+  "title": "CGC to FRG Payload",
+  "description": "Operator classification and field content for FRG computation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "operator",
+    "fields",
+    "spectrum"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "string"
+    },
+    "pipeline_version": {
+      "type": "string"
+    },
+    "operator": {
+      "type": "object",
+      "required": [
+        "name",
+        "operator_type",
+        "emergence_verdict"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "operator_type": {
+          "type": "string",
+          "enum": [
+            "CONSERVED_CURRENT",
+            "GAUGE_FIELD_STRENGTH",
+            "SCALAR",
+            "FERMION_BILINEAR"
+          ]
+        },
+        "is_protected": {
+          "type": "boolean"
+        },
+        "protection_basis": {
+          "type": "string",
+          "enum": [
+            "WARD_IDENTITY",
+            "BRST_SYMMETRY",
+            "NOETHER_THEOREM",
+            "NONE"
+          ]
+        },
+        "emergence_verdict": {
+          "type": "string",
+          "enum": [
+            "DYNAMIC_EMERGENCE",
+            "TOPOLOGICAL_EMERGENCE",
+            "NO_EMERGENCE",
+            "UNCERTAIN"
+          ]
+        },
+        "pi0_sign": {
+          "type": "integer",
+          "enum": [
+            -1,
+            0,
+            1
+          ]
+        },
+        "pi0_bare_ir": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "lambda_crit": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "v_native": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "v_crit_needed": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "gap_to_criticality": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "compute_instructions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "field_type",
+          "n_species",
+          "dof_per_species"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "field_type": {
+            "type": "string",
+            "enum": [
+              "scalar",
+              "vector",
+              "spinor",
+              "tensor_TT"
+            ]
+          },
+          "n_species": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "dof_per_species": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "mass_gev": {
+            "type": "number",
+            "minimum": 0
+          },
+          "coupling_sq": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "spectrum": {
+      "type": "object",
+      "required": [
+        "L_rp3",
+        "M_P"
+      ],
+      "properties": {
+        "L_rp3": {
+          "type": "number",
+          "minimum": 0
+        },
+        "M_P": {
+          "type": "number",
+          "minimum": 0
+        },
+        "M_CURV": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "resummation": {
+      "type": "object"
+    },
+    "frg_recommendations": {
+      "type": "object"
+    }
+  }
+}

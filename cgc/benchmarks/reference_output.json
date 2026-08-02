@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.1.0",
+  "generated_at": "2026-08-01T14:51:30.619506+00:00",
+  "deprecation_note": "Equilibrium RG flow modules (chi_condensation, chi_effective_potential, coupled_chi_*) deprecated 2026-07-31. Synchronicity hypothesis disproven. L2 Pi0 cross-validation and CG-Framework references added as replacements.",
+  "physical_constants": {
+    "M_P_GeV": 2.4353e+18,
+    "M_CURV_GeV": 9.980737704918033e+17,
+    "L_RP3": 2.44,
+    "V_RP3_GeVm3": 9.926858196928227e-54,
+    "K_POLE_GeV": 3.444034288447199e+17,
+    "K_POLE_over_MP": 0.14142135623730953,
+    "T_flavor": 5.0,
+    "alpha": 0.02,
+    "lambda_chi_uv": 0.3599999999999999,
+    "mu2_GeV2": -1.186137218e+35,
+    "chi_vev_uv_GeV": 1.4060211105574958e+18,
+    "chi_vev_over_MP": 0.5773502691896258
+  },
+  "channels": {
+    "Tmunu": {
+      "pi0_bare_ir": 0.03599994535015857,
+      "n_diagrams_total": 6,
+      "emergence_verdict": "DYNAMIC_EMERGENCE",
+      "is_protected": true,
+      "V_native": 0.00017865738238782408
+    },
+    "F2": {
+      "pi0_bare_ir": -0.15226901995657602,
+      "n_diagrams_total": 4,
+      "emergence_verdict": "TOPOLOGICAL_EMERGENCE",
+      "is_protected": true,
+      "V_native": 0.0015579145196845856
+    },
+    "FermionBilinear": {
+      "pi0_bare_ir": -0.3089931664319453,
+      "n_diagrams_total": 2,
+      "emergence_verdict": "NO_EMERGENCE",
+      "is_protected": false,
+      "V_native": 0.001686085816992143
+    },
+    "HiggsQuartic": {
+      "pi0_bare_ir": 0.2475296116292237,
+      "n_diagrams_total": 4,
+      "emergence_verdict": "NO_EMERGENCE",
+      "is_protected": false,
+      "V_native": 0.0008188317641276802
+    }
+  },
+  "chi_effective_potential": {
+    "status": "DEPRECATED",
+    "reason": "Equilibrium RG flow hypothesis disproven",
+    "deprecated_date": "2026-07-31",
+    "replaced_by": "CG-Framework cg_frg/tt_tensor.py (Z_phys = 0.998)"
+  },
+  "dyson_schwinger": {
+    "Tmunu": {
+      "pi0_bare": 0.03599994535015856,
+      "pi0_bubble": 0.008532572142999812,
+      "v_native": 0.00017865738238782408,
+      "v_crit_tadpole": 27.777819945929323,
+      "v_crit_bubble_bare": 117.19795429100564
+    },
+    "F2": {
+      "pi0_bare": -0.152269019956576,
+      "pi0_bubble": -0.03771238722879618,
+      "v_native": 0.0015579145196845856,
+      "v_crit_tadpole": "inf",
+      "v_crit_bubble_bare": "inf"
+    }
+  },
+  "pi0_cross_validation": {
+    "Tmunu": {
+      "pi0_bare_ir": 0.03599994535015857,
+      "pi0_frg_path": 0.03599994535015857,
+      "paths_identical": true
+    },
+    "F2": {
+      "pi0_bare_ir": -0.15226901995657602,
+      "pi0_frg_path": -0.15226901995657602,
+      "paths_identical": true
+    }
+  },
+  "cg_framework_references": {
+    "Z_phys_M_G": 0.99805,
+    "G_N_deviation_pct": 0.027,
+    "gamma_M": 0.0,
+    "gamma_M_precision": 1e-16,
+    "TT_pole_exists": true,
+    "TT_propagator": "G_TT ~ k^-2 (delta-criterion: True)",
+    "matter_backreaction_pct": 0.195,
+    "source_files": [
+      "cg_frg/tt_tensor.py",
+      "cg_frg/newton.py",
+      "cg_frg/sigma_k_definitive.py"
+    ]
+  }
+}

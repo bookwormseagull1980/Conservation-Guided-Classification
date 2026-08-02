@@ -1,0 +1,192 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp": "2026-07-30T09:13:18.188519",
+  "source": "CGC Pipeline",
+  "pipeline_version": "0.1.0",
+  "operator": {
+    "name": "Tmunu (TT projection, spin-2)",
+    "operator_type": "CONSERVED_CURRENT",
+    "is_protected": true,
+    "protection_basis": "WARD_IDENTITY",
+    "matrix_element_nonzero": true,
+    "emergence_verdict": "DYNAMIC_EMERGENCE",
+    "pi0_sign": 1,
+    "pi0_bare_ir": 0.03562653700500884,
+    "lambda_crit": 0.14814814814814814,
+    "v_native": 0.00017865738238782408,
+    "v_crit_needed": 4.158365100916757,
+    "gap_to_criticality": 23275.641036147626,
+    "notes": []
+  },
+  "compute_instructions": [
+    "1. Run full FRG flow for Tmunu (TT projection, spin-2) with RP3 discrete spectrum",
+    "2. Compute V(k) trajectory from k_UV=M_P to k_IR=M_CURV",
+    "3. Determine if V·Pi0 reaches 0.1481 (cubic vertex critical condition)",
+    "4. Compute self-consistent Dyson: y = V·Pi0 satisfies y/(1-y)^2 = V_native·Pi0_bare",
+    "5. Output spectral function: pole position, residue, continuum"
+  ],
+  "fields": [
+    {
+      "name": "SU(3) gluons",
+      "field_type": "vector",
+      "n_species": 8,
+      "dof_per_species": 2,
+      "mass_gev": 0.0,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "W+- bosons",
+      "field_type": "vector",
+      "n_species": 2,
+      "dof_per_species": 3,
+      "mass_gev": 80.377,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Z boson",
+      "field_type": "vector",
+      "n_species": 1,
+      "dof_per_species": 3,
+      "mass_gev": 91.1876,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Photon",
+      "field_type": "vector",
+      "n_species": 1,
+      "dof_per_species": 2,
+      "mass_gev": 0.0,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Top quark",
+      "field_type": "spinor",
+      "n_species": 3,
+      "dof_per_species": 4,
+      "mass_gev": 172.76,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Bottom quark",
+      "field_type": "spinor",
+      "n_species": 3,
+      "dof_per_species": 4,
+      "mass_gev": 4.18,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Charm quark",
+      "field_type": "spinor",
+      "n_species": 3,
+      "dof_per_species": 4,
+      "mass_gev": 1.27,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Light quarks (uds)",
+      "field_type": "spinor",
+      "n_species": 9,
+      "dof_per_species": 4,
+      "mass_gev": 0.0,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Tau lepton",
+      "field_type": "spinor",
+      "n_species": 1,
+      "dof_per_species": 4,
+      "mass_gev": 1.777,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Muon",
+      "field_type": "spinor",
+      "n_species": 1,
+      "dof_per_species": 4,
+      "mass_gev": 0.10566,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Electron",
+      "field_type": "spinor",
+      "n_species": 1,
+      "dof_per_species": 4,
+      "mass_gev": 0.000511,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Neutrinos",
+      "field_type": "spinor",
+      "n_species": 3,
+      "dof_per_species": 2,
+      "mass_gev": 0.0,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Higgs",
+      "field_type": "scalar",
+      "n_species": 1,
+      "dof_per_species": 1,
+      "mass_gev": 125.1,
+      "coupling_sq": 0.028212443000031565
+    },
+    {
+      "name": "Goldstones",
+      "field_type": "scalar",
+      "n_species": 3,
+      "dof_per_species": 1,
+      "mass_gev": 91.1876,
+      "coupling_sq": 0.028212443000031565
+    }
+  ],
+  "spectrum": {
+    "L_rp3": 2.44,
+    "M_P": 2.4353e+18,
+    "M_CURV": 9.980737704918033e+17,
+    "T_flavor": 5,
+    "scalar_lambda": "J(J+2) * M_CURV^2,  J=0,2,4,...",
+    "vector_lambda": "(J+1)^2 * M_CURV^2,  J=1,3,5,...",
+    "spinor_lambda": "(QN+3/2)^2 * M_CURV^2,  QN=0,2,4,...",
+    "tensor_TT_lambda": "J(J+2) * M_CURV^2,  J=2,4,...",
+    "scalar_degeneracy": "(J+1)^2",
+    "vector_degeneracy": "2J(J+2)",
+    "spinor_degeneracy": "(QN+1)(QN+2)",
+    "tensor_TT_degeneracy": "(J+1)^2",
+    "n_scalar_modes_below_MP": 1,
+    "n_vector_modes_below_MP": 1,
+    "n_spinor_modes_below_MP": 1,
+    "n_tensor_TT_modes_below_MP": 1
+  },
+  "resummation": {
+    "operator_name": "Tmunu (TT projection, spin-2)",
+    "n_total_diagrams": 6,
+    "n_q0_diagrams": 3,
+    "n_ladder_diagrams": 0,
+    "n_single_bubble": 3,
+    "resummation_formula": "Pi_resum = Pi0 / (1 - V*Pi0); V_crit = (4/27)/Pi0",
+    "dyson_y_crit": 0.14814814814814814,
+    "bcs_integral_at_native_V": 0.07074699545875511,
+    "has_bcs_solution": true,
+    "spectral_enhancement": null,
+    "dyson_amplification": null,
+    "total_enhancement": null,
+    "notes": [
+      "V·Pi0 = 6.3649e-06 at equilibrium",
+      "Gap to 4/27: 2.33e+04x"
+    ]
+  },
+  "frg_recommendations": {
+    "k_UV": 2.4353e+18,
+    "k_IR": 1.0,
+    "n_grid": 500,
+    "regulator": "Litim",
+    "spectrum": "Camporesi-RP3",
+    "include_rp3_modes": true,
+    "include_anomalous_dim": true,
+    "include_v3_correction": true,
+    "fermion_sign_flip": true,
+    "threshold_function": "2k^2/(k^2+m^2)"
+  },
+  "errors": [],
+  "warnings": []
+}

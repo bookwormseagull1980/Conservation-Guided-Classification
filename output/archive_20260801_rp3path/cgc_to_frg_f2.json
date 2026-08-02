@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp": "2026-07-30T09:13:18.306662",
+  "source": "CGC Pipeline",
+  "pipeline_version": "0.1.0",
+  "operator": {
+    "name": "F^2 (gauge field strength, SU(3))",
+    "operator_type": "GAUGE_FIELD_STRENGTH",
+    "is_protected": true,
+    "protection_basis": "BRST_SYMMETRY",
+    "matrix_element_nonzero": true,
+    "emergence_verdict": "TOPOLOGICAL_EMERGENCE",
+    "pi0_sign": -1,
+    "pi0_bare_ir": -0.1325764952511366,
+    "lambda_crit": 0.14814814814814814,
+    "v_native": 0.0015579145196845856,
+    "v_crit_needed": null,
+    "gap_to_criticality": null,
+    "notes": []
+  },
+  "compute_instructions": [
+    "1. Verify Pi0 < 0 (fermion-dominated) for F^2 (gauge field strength, SU(3))",
+    "2. Confirm Dyson suppression: V_eff < V_bare at all scales",
+    "3. Cross-check: pole from topology (equivariant index theorem), not dynamics"
+  ],
+  "fields": [
+    {
+      "name": "SU(3) gluons",
+      "field_type": "vector",
+      "n_species": 8,
+      "dof_per_species": 2,
+      "mass_gev": 0.0,
+      "coupling_sq": 0.24601599999999998
+    },
+    {
+      "name": "Top quark",
+      "field_type": "spinor",
+      "n_species": 3,
+      "dof_per_species": 4,
+      "mass_gev": 172.76,
+      "coupling_sq": 0.24601599999999998
+    },
+    {
+      "name": "Bottom quark",
+      "field_type": "spinor",
+      "n_species": 3,
+      "dof_per_species": 4,
+      "mass_gev": 4.18,
+      "coupling_sq": 0.24601599999999998
+    },
+    {
+      "name": "Charm quark",
+      "field_type": "spinor",
+      "n_species": 3,
+      "dof_per_species": 4,
+      "mass_gev": 1.27,
+      "coupling_sq": 0.24601599999999998
+    },
+    {
+      "name": "Light quarks (uds)",
+      "field_type": "spinor",
+      "n_species": 9,
+      "dof_per_species": 4,
+      "mass_gev": 0.0,
+      "coupling_sq": 0.24601599999999998
+    }
+  ],
+  "spectrum": {
+    "L_rp3": 2.44,
+    "M_P": 2.4353e+18,
+    "M_CURV": 9.980737704918033e+17,
+    "T_flavor": 5,
+    "scalar_lambda": "J(J+2) * M_CURV^2,  J=0,2,4,...",
+    "vector_lambda": "(J+1)^2 * M_CURV^2,  J=1,3,5,...",
+    "spinor_lambda": "(QN+3/2)^2 * M_CURV^2,  QN=0,2,4,...",
+    "tensor_TT_lambda": "J(J+2) * M_CURV^2,  J=2,4,...",
+    "scalar_degeneracy": "(J+1)^2",
+    "vector_degeneracy": "2J(J+2)",
+    "spinor_degeneracy": "(QN+1)(QN+2)",
+    "tensor_TT_degeneracy": "(J+1)^2",
+    "n_scalar_modes_below_MP": 1,
+    "n_vector_modes_below_MP": 1,
+    "n_spinor_modes_below_MP": 1,
+    "n_tensor_TT_modes_below_MP": 1
+  },
+  "resummation": {
+    "operator_name": "F^2 (gauge field strength, SU(3))",
+    "n_total_diagrams": 0,
+    "n_q0_diagrams": 0,
+    "n_ladder_diagrams": 0,
+    "n_single_bubble": 0,
+    "resummation_formula": "Pi_resum = Pi0 / (1 - V*Pi0); V_crit = (4/27)/Pi0",
+    "dyson_y_crit": 0.14814814814814814,
+    "bcs_integral_at_native_V": null,
+    "has_bcs_solution": false,
+    "spectral_enhancement": null,
+    "dyson_amplification": null,
+    "total_enhancement": null,
+    "notes": [
+      "Pi0 < 0 → Dyson suppression, not amplification"
+    ]
+  },
+  "frg_recommendations": {
+    "k_UV": 2.4353e+18,
+    "k_IR": 1.0,
+    "n_grid": 500,
+    "regulator": "Litim",
+    "spectrum": "Camporesi-RP3",
+    "include_rp3_modes": true,
+    "include_anomalous_dim": true,
+    "include_v3_correction": true,
+    "fermion_sign_flip": true,
+    "threshold_function": "2k^2/(k^2+m^2)"
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,94 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "conservation-guided-classification"
+version = "1.1.0"
+description = "Conservation-Guided Operator Classification — computational backend for 'Coarse-Graining and the Classification of Long-Range Correlations in Quantum Field Theory' (Guo 2026)"
+requires-python = ">=3.10"
+
+[project.scripts]
+cgc-verify = "cgc.benchmarks.verify:main"
+cgc-benchmark = "cgc.benchmarks.benchmark_runner:main"
+cgc-run = "cgc.benchmarks.run:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "hypothesis>=6.100",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pyyaml>=6.0",
+]
+lint = [
+    "mypy>=1.10",
+    "ruff>=0.5",
+]
+
+# ═══════════════════════════════════════════════════════════════════
+# mypy
+# ═══════════════════════════════════════════════════════════════════
+[tool.mypy]
+python_version = "3.10"
+strict = false
+warn_return_any = true
+warn_unused_configs = true
+warn_redundant_casts = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = true
+check_untyped_defs = true
+show_error_codes = true
+pretty = true
+
+[[tool.mypy.overrides]]
+module = ["cgc.engine.*", "cgc.channels.*"]
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = ["numpy", "numpy.*", "scipy", "scipy.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["cgc.tests.*", "cgc.exploratory.*", "cgc.deprecated.*"]
+disallow_untyped_defs = false
+
+# ═══════════════════════════════════════════════════════════════════
+# Ruff
+# ═══════════════════════════════════════════════════════════════════
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+exclude = ["deprecated/", "exploratory/", ".venv/", "__pycache__/"]
+
+[tool.ruff.lint]
+select = ["F", "E", "W", "I", "B", "SIM", "C4", "UP", "RET", "RSE"]
+ignore = ["E501", "D100", "D104", "E731", "E402"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = ["S101", "T201", "PLR2004"]
+"test_*.py" = ["S101", "T201", "PLR2004"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# ═══════════════════════════════════════════════════════════════════
+# pytest
+# ═══════════════════════════════════════════════════════════════════
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["cgc/tests"]
+pythonpath = ["."]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "slow: Slow tests",
+    "physics: Physics benchmark tests",
+]
+addopts = ["-v", "--strict-markers", "--tb=short"]
+
+[tool.coverage.run]
+source = ["cgc/engine", "cgc/channels"]
+omit = ["*/tests/*", "*/deprecated/*", "*/exploratory/*"]

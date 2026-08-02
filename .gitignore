@@ -1,0 +1,34 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+*.egg
+
+# ===== Caches =====
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+.benchmarks/
+.coverage
+.coverage.*
+htmlcov/
+
+# ===== Third-party vendored (FeynArts) — do not commit =====
+third_party/
+
+# ===== OS / editor =====
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# ===== Temp / diagnostic scripts =====
+_concat_modified.py
+_diag2.py
+_md2docx.py
+_quick_diag.py

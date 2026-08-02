@@ -1,0 +1,15 @@
+# CGC: Conservation-Guided Classification
+# Verified on Python 3.12.10, numpy 2.4.6, scipy 1.17.1 (Windows)
+# Install: pip install -r requirements.txt
+
+# Core
+numpy>=2.0
+scipy>=1.10
+
+# Development & Testing
+hypothesis>=6.0      # property-based testing (P1)
+
+# Development (optional)
+# pytest>=7.0          # test runner
+# mypy>=1.0            # static type checking
+# ruff>=0.1            # linter

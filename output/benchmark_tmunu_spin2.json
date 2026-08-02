@@ -1,0 +1,43 @@
+{
+  "operator_name": "Tμν spin-2 (TT projection)",
+  "timestamp": "2026-07-29T10:22:35.604135",
+  "pipeline_version": "0.1.0",
+  "errors": [],
+  "benchmark_passed": true,
+  "benchmark_details": {
+    "diagram_count": true,
+    "q0_count": true,
+    "q_nonzero_count": true,
+    "ladder_count": true,
+    "bubble_count": true,
+    "conservation_protected": true,
+    "injection_nonzero": true
+  },
+  "diagrams": {
+    "total": 6,
+    "complete": true,
+    "backend": "builtin"
+  },
+  "momentum": {
+    "q0_count": 3,
+    "q_nonzero_count": 3,
+    "suppression_ratio": 0.5
+  },
+  "topology": {
+    "single_bubble": 3,
+    "ladder": 0,
+    "crossed_ladder": 0,
+    "vertex_correction": 0
+  },
+  "conservation": {
+    "protected": true,
+    "basis": "WARD_IDENTITY",
+    "matrix_element_nonzero": true
+  },
+  "resummation": {
+    "injection_nonzero": true,
+    "lambda_crit": null,
+    "is_critical": false,
+    "pole_exists": false
+  }
+}

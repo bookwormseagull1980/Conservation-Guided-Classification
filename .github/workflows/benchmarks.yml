@@ -1,0 +1,45 @@
+name: CGC Benchmarks
+
+on:
+  push:
+    paths:
+      - 'cgc/engine/**'
+      - 'cgc/benchmarks/**'
+      - 'cgc/channels/**'
+      - 'cgc/interface/**'
+  pull_request:
+    paths:
+      - 'cgc/engine/**'
+      - 'cgc/benchmarks/**'
+      - 'cgc/channels/**'
+      - 'cgc/interface/**'
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install CGC
+        run: pip install -e .
+
+      - name: Run benchmarks
+        run: python -m cgc.benchmarks.verify --verbose
+
+      - name: Regenerate reference (if changed)
+        run: |
+          python -m cgc.benchmarks.generate_reference
+          if ! git diff --quiet cgc/benchmarks/reference_output.json; then
+            echo "⚠ reference_output.json changed — this commit modifies physical output"
+            git diff cgc/benchmarks/reference_output.json
+          fi
