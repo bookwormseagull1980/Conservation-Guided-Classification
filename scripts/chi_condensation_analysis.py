@@ -4,8 +4,8 @@ sys.path.insert(0, r'D:\论文撰写\Conservation-Guided Classification')
 import numpy as np
 
 from cgc.engine.chi_condensation import ChiPotential, ChiDrivenEmergence
-from cgc.engine.self_consistent_dyson import AnalyticalPoleConditions
-from cgc.engine.gravity_feedback import CombinedPi0F2, M_P, M_CURV
+from cgc.rp3_engine.self_consistent_dyson import AnalyticalPoleConditions
+from cgc.rp3_engine.gravity_feedback import CombinedPi0F2, M_P, M_CURV
 
 pot = ChiPotential()
 ce = ChiDrivenEmergence()

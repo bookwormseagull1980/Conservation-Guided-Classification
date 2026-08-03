@@ -37,8 +37,8 @@ from cgc.interface.schema import (
 
 def build_tmunu_payload() -> CGCToFRGPayload:
     """Build CGC→FRG payload for Tmunu using real CG-Framework numbers."""
-    from cgc.engine.frg_flow_rp3 import tmunu_field_content
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.frg_flow_rp3 import tmunu_field_content
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     # Get results from self-consistent solver
     solver = SelfConsistentSolver("Tmunu")
@@ -80,8 +80,8 @@ def build_tmunu_payload() -> CGCToFRGPayload:
 
 def build_f2_payload() -> CGCToFRGPayload:
     """Build CGC→FRG payload for F² using real CG-Framework numbers."""
-    from cgc.engine.frg_flow_rp3 import f2_field_content
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.frg_flow_rp3 import f2_field_content
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     solver = SelfConsistentSolver("F2")
     native_v = solver.native_v

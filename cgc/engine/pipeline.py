@@ -271,19 +271,10 @@ class CGCPipeline:
             # component (cgc/rp3_engine/) and is NOT invoked here.
             _Pi0 = Pi0_zero
 
-            # Auto-crossed-ratio: compute r = Σ_crossed/(V·Π₀) from crossed_ladder_f2
-            from .crossed_ladder_f2 import compute_crossed_ratio_explicit
-
+            # Auto-crossed-ratio: caller-provided (flat-space estimate) or None.
+            # RP3 crossed-ladder mode counting is a SEPARATE component
+            # (cgc/rp3_engine/) and is NOT invoked here.
             _crossed_ratio = None
-            ot = operator.op_type.name
-            if ot == "GAUGE_FIELD_STRENGTH":
-                _crossed_ratio = compute_crossed_ratio_explicit(1.0, "F2")
-            elif ot == "CONSERVED_CURRENT":
-                # Tmunu: use degeneracy estimate from mode counting
-                from .crossed_ladder_f2 import count_active_modes
-
-                mc = count_active_modes(1.0)
-                _crossed_ratio = 1.0 / mc.n_total if mc.n_total > 0 else None
 
             report.resummation_result = self.resummator.resummate(
                 report.topology_classification,

@@ -23,7 +23,7 @@ from .conftest import (
     assert_close,
 )
 
-from cgc.engine.frg_flow_rp3 import (
+from cgc.rp3_engine.frg_flow_rp3 import (
     ExponentialRegulator,
     FieldContent,
     FieldSpecies,
@@ -83,7 +83,7 @@ def test_spinor_sign_in_code():
     """
     import inspect
 
-    from cgc.engine.frg_flow_rp3 import RP3TraceDensity
+    from cgc.rp3_engine.frg_flow_rp3 import RP3TraceDensity
 
     source = inspect.getsource(RP3TraceDensity.trace_density_at_k)
     assert "SPINOR" in source and (
@@ -155,7 +155,7 @@ def test_k_UV_finite():
 
 def test_solver_match():
     """Direct 500-bin integration matches SelfConsistentSolver."""
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     golden = {"Tmunu": 3.5999945350e-02, "F2": -1.5226901996e-01}
     for name in ["Tmunu", "F2"]:

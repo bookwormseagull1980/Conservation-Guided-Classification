@@ -45,8 +45,8 @@ def _load_reference() -> dict:
 def verify_physical_constants(user: dict, ref: dict, tol: float) -> tuple[bool, str, list]:
     import numpy as np
 
-    from cgc.engine.chi_potential import ChiPotential
-    from cgc.engine.frg_flow_rp3 import L_RP3, M_CURV, M_P
+    from cgc.rp3_engine.chi_potential import ChiPotential
+    from cgc.rp3_engine.frg_flow_rp3 import L_RP3, M_CURV, M_P
 
     cp = ChiPotential()
     V_RP3 = np.pi**2 * (L_RP3 / M_P) ** 3
@@ -85,7 +85,7 @@ def verify_physical_constants(user: dict, ref: dict, tol: float) -> tuple[bool, 
 
 
 def verify_channels(user: dict, ref: dict, tol: float) -> tuple[bool, str, list]:
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     details = []
     all_ok = True
@@ -150,7 +150,7 @@ def verify_channels(user: dict, ref: dict, tol: float) -> tuple[bool, str, list]
 
 
 def verify_dyson_schwinger(user: dict, ref: dict, tol: float) -> tuple[bool, str, list]:
-    from cgc.engine.dyson_schwinger import DysonSchwingerSolver
+    from cgc.rp3_engine.dyson_schwinger import DysonSchwingerSolver
 
     details = []
     all_ok = True
@@ -197,8 +197,8 @@ def verify_dyson_schwinger(user: dict, ref: dict, tol: float) -> tuple[bool, str
 def verify_pi0_cross_validation(user: dict, ref: dict, tol: float) -> tuple[bool, str, list]:
     import numpy as np
 
-    from cgc.engine.frg_flow_rp3 import M_P, LitimRegulator, RP3TraceDensity, f2_field_content, tmunu_field_content
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.frg_flow_rp3 import M_P, LitimRegulator, RP3TraceDensity, f2_field_content, tmunu_field_content
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     details = []
     all_ok = True
@@ -246,7 +246,7 @@ def verify_pi0_cross_validation(user: dict, ref: dict, tol: float) -> tuple[bool
 
 
 def verify_CG_Framework_refs(user: dict, ref: dict, tol: float) -> tuple[bool, str, list]:
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     details = []
 

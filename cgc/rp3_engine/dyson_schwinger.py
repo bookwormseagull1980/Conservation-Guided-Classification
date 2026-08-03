@@ -35,14 +35,14 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from cgc.engine.frg_flow_rp3 import (
+from cgc.rp3_engine.frg_flow_rp3 import (
     L_RP3,
     M_P,
     RP3Spectrum,
     f2_field_content,
     tmunu_field_content,
 )
-from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
 
 @dataclass

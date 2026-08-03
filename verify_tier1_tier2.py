@@ -13,18 +13,18 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from cgc.engine.frg_flow_rp3 import (
+from cgc.rp3_engine.frg_flow_rp3 import (
     M_P, M_CURV, L_RP3, N_C,
     RP3Spectrum, FieldSpecies, FieldContent,
     tmunu_field_content, f2_field_content,
 )
-from cgc.engine.frg_trace_density import FRGTraceDensity
-from cgc.engine.self_consistent_dyson import SelfConsistentSolver, AnalyticalPoleConditions
+from cgc.rp3_engine.frg_trace_density import FRGTraceDensity
+from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver, AnalyticalPoleConditions
 from cgc.engine.chi_condensation import ChiPotential
-from cgc.engine.gravity_feedback import GravitonExchangePi0
+from cgc.rp3_engine.gravity_feedback import GravitonExchangePi0
 from cgc.engine.coupled_k_chi_evolution import CoupledKChiEvolution
 from cgc.engine.coupled_chi_closure import CoupledChiClosure
-from cgc.engine.dyson_schwinger import DysonSchwingerSolver
+from cgc.rp3_engine.dyson_schwinger import DysonSchwingerSolver
 
 # Suppress numpy warnings during tests
 warnings.filterwarnings("ignore", category=RuntimeWarning)
@@ -231,7 +231,7 @@ def layer2_integration_tests():
           f"V*Pi0={vpi0_f2:.4e}")
 
     # ── I4: Cubic V_crit = 0.148 / Pi0_bare ──
-    from cgc.engine.self_consistent_dyson import AnalyticalPoleConditions
+    from cgc.rp3_engine.self_consistent_dyson import AnalyticalPoleConditions
     x_crit = 4.0/27.0
     v_crit_tt = x_crit / solver.pi0_bare_ir
     check("I4a", "Tmunu cubic V_crit = 4.15", abs(v_crit_tt - 4.15) < 0.05,

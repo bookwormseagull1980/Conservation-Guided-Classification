@@ -102,7 +102,7 @@ class CGCToFRGBridge:
     ) -> list[CGCFieldContent]:
         """Convert CGC engine FieldContent list to schema format.
 
-        Handles both cgc.engine.frg_flow_rp3.FieldContent and plain tuples.
+        Handles both cgc.rp3_engine.frg_flow_rp3.FieldContent and plain tuples.
         """
         result = []
         for f in fields:

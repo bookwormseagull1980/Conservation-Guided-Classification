@@ -15,8 +15,8 @@ _CGC_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # cgc/
 if _CGC_ROOT not in sys.path:
     sys.path.insert(0, os.path.dirname(_CGC_ROOT))  # parent of cgc/ for imports
 
-from cgc.engine.chi_potential import ChiPotential
-from cgc.engine.frg_flow_rp3 import (
+from cgc.rp3_engine.chi_potential import ChiPotential
+from cgc.rp3_engine.frg_flow_rp3 import (
     L_RP3,
     M_CURV,
     M_P,
@@ -199,7 +199,7 @@ def test_regulator_litim_vs_exp():
 
 def test_RP3_spectrum_zero_modes_below_M_CURV():
     """Below M_CURV, very few modes should exist for any field type."""
-    from cgc.engine.frg_flow_rp3 import RP3Spectrum
+    from cgc.rp3_engine.frg_flow_rp3 import RP3Spectrum
 
     sp = RP3Spectrum(L=L_RP3)
     k_lo = M_CURV * 0.1
@@ -210,7 +210,7 @@ def test_RP3_spectrum_zero_modes_below_M_CURV():
 
 def test_RP3_spectrum_many_modes_above_M_P():
     """Above M_P, many modes should exist."""
-    from cgc.engine.frg_flow_rp3 import RP3Spectrum
+    from cgc.rp3_engine.frg_flow_rp3 import RP3Spectrum
 
     sp = RP3Spectrum(L=L_RP3)
     k_hi = M_P * 10

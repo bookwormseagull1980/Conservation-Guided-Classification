@@ -24,7 +24,7 @@ def test_chi_vev_derivation():
     import numpy as np
 
     chi_vev_expected = M_P / np.sqrt(T_FLAVOR - 2)  # T=5 -> 1/sqrt(3)
-    from cgc.engine.chi_potential import ChiPotential
+    from cgc.rp3_engine.chi_potential import ChiPotential
 
     cp = ChiPotential()
     assert_close(cp.chi_vev, chi_vev_expected, label="chi_vev")
@@ -38,7 +38,7 @@ def test_chi_vev_derivation():
 def test_mu2_derivation():
     """mu2 = -alpha * M_P^2 from Holst-deformed mass."""
     mu2_expected = -ALPHA * M_P**2
-    from cgc.engine.chi_potential import ChiPotential
+    from cgc.rp3_engine.chi_potential import ChiPotential
 
     cp = ChiPotential()
     assert_close(cp.mu2, mu2_expected, label="mu2")
@@ -46,7 +46,7 @@ def test_mu2_derivation():
 
 def test_lambda_derivation():
     """lambda = 6*alpha / (chi_vev/M_P)^2 from quartic self-coupling."""
-    from cgc.engine.chi_potential import ChiPotential
+    from cgc.rp3_engine.chi_potential import ChiPotential
 
     cp = ChiPotential()
     chi_ratio = cp.chi_vev / M_P
@@ -56,7 +56,7 @@ def test_lambda_derivation():
 
 def test_T_preserved():
     """T flavor index is preserved exactly (integer input)."""
-    from cgc.engine.chi_potential import ChiPotential
+    from cgc.rp3_engine.chi_potential import ChiPotential
 
     cp = ChiPotential()
     assert isinstance(cp.T, int) or (cp.T % 1 == 0), f"T={cp.T} is not integer"
@@ -65,7 +65,7 @@ def test_T_preserved():
 
 def test_alpha_preserved():
     """alpha is preserved exactly (float input)."""
-    from cgc.engine.chi_potential import ChiPotential
+    from cgc.rp3_engine.chi_potential import ChiPotential
 
     cp = ChiPotential()
     assert cp.alpha == ALPHA, f"alpha={cp.alpha} != {ALPHA}"
@@ -73,7 +73,7 @@ def test_alpha_preserved():
 
 def test_full_closure():
     """All 3 derived quantities are consistent with each other."""
-    from cgc.engine.chi_potential import ChiPotential
+    from cgc.rp3_engine.chi_potential import ChiPotential
 
     cp = ChiPotential()
     chi_ratio = cp.chi_vev / M_P
@@ -86,7 +86,7 @@ def test_full_closure():
 
 def test_no_free_parameters():
     """ChiPotential takes NO arguments 鈥?zero free parameters."""
-    from cgc.engine.chi_potential import ChiPotential
+    from cgc.rp3_engine.chi_potential import ChiPotential
 
     cp1 = ChiPotential()
     cp2 = ChiPotential()
@@ -99,7 +99,7 @@ def test_invariant_under_round_trip():
     """Compute chi_vev from mu2 and lambda, verify self-consistency."""
     import numpy as np
 
-    from cgc.engine.chi_potential import ChiPotential
+    from cgc.rp3_engine.chi_potential import ChiPotential
 
     cp = ChiPotential()
 
@@ -110,7 +110,7 @@ def test_invariant_under_round_trip():
 
 def test_physical_ranges():
     """All quantities in physically meaningful ranges."""
-    from cgc.engine.chi_potential import ChiPotential
+    from cgc.rp3_engine.chi_potential import ChiPotential
 
     cp = ChiPotential()
 

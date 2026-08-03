@@ -236,7 +236,7 @@ def bench_CGC_pi0_internal(verbose: bool = True) -> dict:
     the CG-Framework reference values. This is the internal Pi0
     self-consistency check.
     """
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     results = {}
     for op in ["Tmunu", "F2"]:
@@ -327,7 +327,7 @@ def bench_CG_Framework_references(verbose: bool = True) -> dict:
     }
 
     # CGC prediction
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     s = SelfConsistentSolver("Tmunu")
 

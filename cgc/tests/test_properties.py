@@ -22,8 +22,8 @@ _CGC_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # cgc/
 if _CGC_ROOT not in sys.path:
     sys.path.insert(0, os.path.dirname(_CGC_ROOT))  # parent of cgc/ for imports
 
-from cgc.engine.chi_potential import ChiPotential
-from cgc.engine.frg_flow_rp3 import (
+from cgc.rp3_engine.chi_potential import ChiPotential
+from cgc.rp3_engine.frg_flow_rp3 import (
     M_P,
     FieldContent,
     FieldSpecies,
@@ -196,7 +196,7 @@ def test_dse_gap_nonnegative(channel):
     This is a physical invariant: the critical V for emergent pole
     formation cannot be below the native V of the theory.
     """
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     s = SelfConsistentSolver(channel)
     vc = s.find_v_crit()

@@ -28,7 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import numpy as np
 
-from cgc.engine.frg_flow_rp3 import (
+from cgc.rp3_engine.frg_flow_rp3 import (
     M_CURV,
     M_P,
     FlowConfig,
@@ -36,7 +36,7 @@ from cgc.engine.frg_flow_rp3 import (
     f2_field_content,
     tmunu_field_content,
 )
-from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 from cgc.interface.bridge import (
     CGC_FRG_Validator,
     CGCToFRGBridge,

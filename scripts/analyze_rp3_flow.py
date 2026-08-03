@@ -3,7 +3,7 @@ warnings.filterwarnings('ignore')
 sys.path.insert(0, '.')
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 import numpy as np
-from cgc.engine.frg_flow_rp3 import *
+from cgc.rp3_engine.frg_flow_rp3 import *
 
 spectrum = RP3Spectrum(L_RP3)
 print('=== MODE COUNTING ON RP3 (L=%.2f, M_CURV=%.2e GeV) ===' % (L_RP3, M_CURV))

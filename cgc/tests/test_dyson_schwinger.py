@@ -2,8 +2,8 @@
 
 from .conftest import RTOL_NUMERICAL, assert_close
 
-from cgc.engine.dyson_schwinger import DysonSchwingerSolver
-from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+from cgc.rp3_engine.dyson_schwinger import DysonSchwingerSolver
+from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
 
 def test_solver_Tmunu_pi0():

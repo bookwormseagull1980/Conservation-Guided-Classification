@@ -13,11 +13,11 @@ def run():
     print("=" * 64)
 
     mods = {
-        "frg_flow": "cgc.engine.frg_flow",
-        "frg_flow_rp3": "cgc.engine.frg_flow_rp3",
+        "frg_flow": "cgc.rp3_engine.frg_flow",
+        "frg_flow_rp3": "cgc.rp3_engine.frg_flow_rp3",
         "two_loop_topologies": "cgc.engine.two_loop_topologies",
-        "self_consistent_dyson": "cgc.engine.self_consistent_dyson",
-        "gravity_feedback": "cgc.engine.gravity_feedback",
+        "self_consistent_dyson": "cgc.rp3_engine.self_consistent_dyson",
+        "gravity_feedback": "cgc.rp3_engine.gravity_feedback",
     }
     print("\n-- Module Availability --")
     for name, path in mods.items():
@@ -27,20 +27,20 @@ def run():
         except Exception as e:
             print(f"  FAIL {name}: {e}")
 
-    from cgc.engine.self_consistent_dyson import AnalyticalPoleConditions
+    from cgc.rp3_engine.self_consistent_dyson import AnalyticalPoleConditions
     x_crit, y_crit = AnalyticalPoleConditions.cubic_vertex()
     y_std = AnalyticalPoleConditions.solve_pole_standard()
     print(f"\n-- Analytical Pole Conditions --")
     print(f"  cubic vertex: x_crit = {x_crit:.6f}, y_crit = {y_crit:.6f}")
     print(f"  standard pole: y_crit = {y_std:.4f}")
 
-    from cgc.engine.frg_flow_rp3 import M_P, M_CURV, L_RP3
+    from cgc.rp3_engine.frg_flow_rp3 import M_P, M_CURV, L_RP3
     print(f"\n-- RP3 FRG Parameters --")
     print(f"  M_P = {M_P:.4e} GeV")
     print(f"  M_CURV = {M_CURV:.4e} GeV")
     print(f"  L_RP3 = {L_RP3}")
 
-    from cgc.engine.gravity_feedback import CombinedPi0F2
+    from cgc.rp3_engine.gravity_feedback import CombinedPi0F2
     c = CombinedPi0F2()
     fund = c.pi0_fund_ir
     grav_tree = c.grav_exchange.estimate_pi0_grav()
@@ -59,7 +59,7 @@ def run():
     print(f"  Pi0_total = {pi0_total_pole:+.4e}")
     print(f"  Sign flipped: {pi0_total_pole > 0}")
 
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
     s_tt = SelfConsistentSolver("Tmunu")
     v_crit_cubic = x_crit / s_tt.pi0_bare_ir
     print(f"\n-- Tmunu Critical (cubic vertex) --")

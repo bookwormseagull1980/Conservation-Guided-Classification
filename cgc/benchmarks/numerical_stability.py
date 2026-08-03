@@ -46,7 +46,7 @@ def analyze_convergence() -> dict:
     Returns:
         Dict with grid resolutions, Pi0 values, and estimated error.
     """
-    from cgc.engine.frg_flow_rp3 import (
+    from cgc.rp3_engine.frg_flow_rp3 import (
         LitimRegulator,
         RP3TraceDensity,
         tmunu_field_content,
@@ -94,7 +94,7 @@ def analyze_parameter_sensitivity(delta_pct: float = 1.0) -> dict:
       - T (flavor index)
       - L_RP3 (dimensionless RP3 size)
     """
-    from cgc.engine.frg_flow_rp3 import (
+    from cgc.rp3_engine.frg_flow_rp3 import (
         FieldContent,
         LitimRegulator,
         RP3TraceDensity,
@@ -176,7 +176,7 @@ def analyze_regulator_dependence() -> dict:
     Litim (sharp) vs Exponential (smooth) cutoff difference
     gives an upper bound on the RG scheme ambiguity.
     """
-    from cgc.engine.frg_flow_rp3 import (
+    from cgc.rp3_engine.frg_flow_rp3 import (
         ExponentialRegulator,
         LitimRegulator,
         RP3TraceDensity,
@@ -239,7 +239,7 @@ def analyze_precision_ceiling() -> dict:
     With cancellation (boson - fermion), the effective precision
     is worse by the cancellation factor.
     """
-    from cgc.engine.frg_flow_rp3 import (
+    from cgc.rp3_engine.frg_flow_rp3 import (
         LitimRegulator,
         RP3TraceDensity,
         tmunu_field_content,
@@ -306,7 +306,7 @@ def analyze_V_crit_condition() -> dict:
     uncertainty in V_crit's ABSOLUTE value. However, the PHYSICAL
     test is V_native vs V_crit which spans 4 orders of magnitude.
     """
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     s = SelfConsistentSolver("Tmunu")
     pi0 = s.pi0_bare_ir

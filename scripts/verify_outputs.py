@@ -1,9 +1,9 @@
 """Verify CGC numerical outputs unchanged after P0-P2 modifications."""
 import sys; sys.path.insert(0, ".")
 
-from cgc.engine.frg_flow_rp3 import RP3TraceDensity
-from cgc.engine.self_consistent_dyson import SelfConsistentSolver
-from cgc.engine.chi_potential import ChiPotential
+from cgc.rp3_engine.frg_flow_rp3 import RP3TraceDensity
+from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
+from cgc.rp3_engine.chi_potential import ChiPotential
 from cgc import CGCPipeline
 from cgc.channels.tmunu_spin2 import TMunuSpin2
 from cgc.channels.gauge_field import GaugeFieldStrength
@@ -17,7 +17,7 @@ print("=== Pi0 ===")
 td = RP3TraceDensity([])
 # NOTE 2026-08-01: RP3TraceDensity has no compute_tmunu/compute_f2 methods.
 # Use SelfConsistentSolver (the official path) instead.
-from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 s_tm = SelfConsistentSolver("Tmunu")
 s_f2 = SelfConsistentSolver("F2")
 tm = s_tm.pi0_bare_ir

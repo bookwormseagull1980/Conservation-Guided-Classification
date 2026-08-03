@@ -18,8 +18,8 @@ if _CGC_ROOT not in sys.path:
 
 
 def gather_physical_constants() -> dict:
-    from cgc.engine.chi_potential import ChiPotential
-    from cgc.engine.frg_flow_rp3 import L_RP3, M_CURV, M_P
+    from cgc.rp3_engine.chi_potential import ChiPotential
+    from cgc.rp3_engine.frg_flow_rp3 import L_RP3, M_CURV, M_P
 
     cp = ChiPotential()
     V_RP3 = np.pi**2 * (L_RP3 / M_P) ** 3
@@ -44,7 +44,7 @@ def gather_physical_constants() -> dict:
 def gather_channels() -> dict:
     from cgc.engine.diagram_generator import OperatorSpec, OperatorType
     from cgc.engine.one_loop_generator import expected_one_loop_count
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     channels = {}
     for name, op_type, lorentz_rank, spin, ext_mom, mass_dim, is_prot in [
@@ -82,7 +82,7 @@ def gather_channels() -> dict:
 
 
 def gather_dyson_schwinger() -> dict:
-    from cgc.engine.dyson_schwinger import DysonSchwingerSolver
+    from cgc.rp3_engine.dyson_schwinger import DysonSchwingerSolver
 
     result = {}
     for ch in ["Tmunu", "F2"]:
@@ -106,14 +106,14 @@ def gather_pi0_cross_validation() -> dict:
     """L2: Pi0 computed on two INDEPENDENT code paths."""
     import numpy as np
 
-    from cgc.engine.frg_flow_rp3 import (
+    from cgc.rp3_engine.frg_flow_rp3 import (
         M_P,
         LitimRegulator,
         RP3TraceDensity,
         f2_field_content,
         tmunu_field_content,
     )
-    from cgc.engine.self_consistent_dyson import SelfConsistentSolver
+    from cgc.rp3_engine.self_consistent_dyson import SelfConsistentSolver
 
     result = {}
     for name, fields_fn in [("Tmunu", tmunu_field_content), ("F2", f2_field_content)]:
