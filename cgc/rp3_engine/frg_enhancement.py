@@ -7,17 +7,13 @@ coupled FRG trace density:
     trace, Litim regulator).
   - Fermion loops contribute negative eta (spin-statistics sign).
 
-Spectrum correctness (verified 2026-07-29):
+Spectrum correctness (verified):
     For L_RP3=2.44, only ONE mode per field type is active below M_P:
       Scalar J=0  (d=1),  Vector n=1 (d=6),  Spinor n=0 (d=2).
-    The v1 zero-mode-only approach was correct by accident.
 
-Key physical finding preserved from v1:
+Key physical finding:
   chi_cross = 0.333 chi_vev  is OUTSIDE the physical emergence
   window [0.41, 1.0].  V_chi'' > 0 everywhere inside the window.
-
-Author: CGC Gap 1/3 (corrected)
-Date: 2026-07-29
 """
 
 from __future__ import annotations
