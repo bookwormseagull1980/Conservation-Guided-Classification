@@ -577,7 +577,7 @@ class RP3FRGFlowSolver:
         self._k_grid = np.geomspace(config.k_ir, config.k_uv, config.n_grid)
 
         # Select field content
-        if "F2" in config.operator_name or "F" in config.operator_name == "F":
+        if config.operator_name.startswith("F") or "F2" in config.operator_name:
             fields = f2_field_content()
         else:
             fields = tmunu_field_content()

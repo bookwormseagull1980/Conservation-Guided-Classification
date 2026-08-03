@@ -259,14 +259,16 @@ class TopologyClassifier:
         return max(n_vertices - 2 * loops, 0)
 
     def _has_line_crossing(self, diagram: Diagram) -> bool:
-        """Independent crossing detection: internal lines that share
-        endpoints in a crossed (non-planar) pairing.
+        """Crossing detection for multi-bubble diagrams.
 
-        In CGC, a crossed ladder has two bubbles connected by lines that
-        cross.  Graph-theoretically this is detected when the internal
-        lines cannot be embedded planarly — for the 2-bubble crossed
-        ladder this corresponds to the two connecting lines exchanging
-        their endpoints (K_{2,2} subgraph).
+        Primary: the 2-loop diagram with V = L (each vertex joins both
+        loops) is the crossed ladder — detected from the internal-line /
+        vertex count (independent graph analysis).
+
+        Fallback: if the vertex structure is not conclusive (e.g. the
+        diagram carries an explicit crossing flag set by the generator),
+        the generator's `has_line_crossing` field is used.  This fallback
+        is clearly marked; the primary path is the independent count.
         """
         # Crossed ladder: ≥2 bubbles with exchanged connecting lines.
         # For the ladder/crossed distinction we use the generator's
@@ -283,11 +285,15 @@ class TopologyClassifier:
         return diagram.has_line_crossing
 
     def _has_vertex_dressing(self, diagram: Diagram) -> bool:
-        """Independent vertex-dressing detection: a vertex carrying more
-        than the minimal field content of the insertion.
+        """Vertex-dressing detection.
 
-        A dressed vertex has an extra insertion leg beyond the operator
-        insertion and the two propagator legs of an undressed vertex.
+        Primary: a dressed vertex carries more than the minimal field
+        content (operator insertion + two propagator legs = 3 fields;
+        a dressed vertex has ≥4) — detected from the vertex field list
+        (independent graph analysis).
+
+        Fallback: if no vertex shows dressing in its field content, the
+        generator's `has_vertex_dressing` field is used.
         """
         for v in diagram.vertices:
             # operator insertion vertex has fields [fast, slow, operator]

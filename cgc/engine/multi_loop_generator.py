@@ -286,6 +286,13 @@ def _make_figure8(operator: OperatorSpec, field_loop: SMField, field_bridge: SMF
 
 # SM interaction vertices: (field_a, field_b) → vertex_type_name
 # Used to determine which field pairs can interact in multi-loop diagrams.
+#
+# NOTE: this is a REDUCED vertex table covering the dominant SM vertices
+# (QCD gluon-fermion, EW gauge-scalar, Yukawa).  It is not the complete
+# fa_model_parser-generated interaction set; multi-loop topologies built
+# with it cover the leading (g_s^2, g^2, y^2) interactions, which are the
+# ones relevant to the ladder resummation.  Full vertex coverage would
+# require the FeynArts/QGRAF model export.
 _SM_INTERACTIONS: dict[tuple[SMField, SMField], str] = {
     # QCD
     (SMField.WEYL_FERMION, SMField.WEYL_FERMION): "G",

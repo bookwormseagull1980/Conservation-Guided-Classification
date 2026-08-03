@@ -27,10 +27,16 @@ from .frg_trace_density import M_H, M_T, M_W, M_Z
 
 # ────────────────── EC-derived parameters (rigid) ──────────────────
 T_FLAVOR = 5
+# alpha = -1/50 is the EC curvature coupling (already includes the
+# (T-2)^{-1} factor, see chi_potential.py and FRAMEWORK.md 2026-07-20:
+# alpha = -(T-2)^{-1} (L^{-2})/(8 pi) = -1/50 at T=5, L=2.44).
+# The ST tachyon mass is mu2_chi = alpha * M_P^2 = -M_P^2/50.
+# 2026-08-03: removed the spurious extra division by (T-2) that
+# double-counted the factor (was -M_P^2/150).
 ALPHA = -1.0 / 50.0
 LAMBDA_CHI = 0.36
 CHI_VEV = M_P / np.sqrt(float(T_FLAVOR - 2))
-M2_CHI_BARE = ALPHA * M_P * M_P / float(T_FLAVOR - 2)
+M2_CHI_BARE = ALPHA * M_P * M_P
 ABS_M_CHI = np.sqrt(abs(M2_CHI_BARE))
 CHI_CROSS = ABS_M_CHI * np.sqrt(2.0 / LAMBDA_CHI)
 CHI_MIN_WINDOW = M_CURV / M_P
