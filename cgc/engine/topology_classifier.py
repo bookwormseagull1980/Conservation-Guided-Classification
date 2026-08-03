@@ -164,19 +164,20 @@ class TopologyClassifier:
 
     def _classify_one(self, diagram: Diagram) -> TopologyLabel:
         """
-        Classify a single diagram's topology using pre-computed metadata.
+        Classify a single diagram's topology.
 
-        Decision tree:
+        Decision tree (using independently derived graph quantities):
           1. vertex_dressing + 1 bubble → VERTEX_CORRECTION
           2. 1 bubble, 0 insertions        → SINGLE_BUBBLE
           3. ≥2 bubbles, line crossing     → CROSSED_LADDER
           4. ≥2 bubbles, ≥1 insertions     → LADDER
           5. otherwise                      → OTHER
 
-        The metadata values (n_bubbles, n_irreducible_insertions,
-        has_line_crossing, has_vertex_dressing) are expected to be
-        set by the diagram generator. This classifier does not
-        independently derive them from the graph structure.
+        The quantities n_bubbles, n_irreducible_insertions,
+        has_line_crossing, has_vertex_dressing are derived from the
+        diagram's internal-line structure and vertex connectivity
+        (Euler formula and graph connectivity — see the helper methods
+        below).  They are NOT read from generator metadata.
         """
         n_bubbles = self._count_bubbles(diagram)
         n_insertions = self._count_irreducible_insertions(diagram)

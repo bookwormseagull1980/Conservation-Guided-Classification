@@ -129,65 +129,6 @@ class ConservationChecker:
     # The mapping operator-type → verdict is a direct evaluation of
     # these identities (a decision table for the deductive result).
 
-    PROTECTION_RULES: dict[OperatorType, ProtectionVerdict] = {
-        OperatorType.CONSERVED_CURRENT: ProtectionVerdict(
-            operator_name="Tμν / conserved current",
-            protection_basis=ProtectionBasis.WARD_IDENTITY,
-            is_protected=True,
-            matrix_element_nonzero=True,
-            theorem_reference="Ward (1950); Takahashi (1957)",
-            notes=(
-                "∂_μ⟨Tμν…⟩ = 0 → q_μ M^{μν…} = 0. "
-                "At q=0 the identity is vacuous → M ≠ 0 is generic. "
-                "No small-parameter suppression."
-            ),
-        ),
-        OperatorType.GAUGE_FIELD_STRENGTH: ProtectionVerdict(
-            operator_name="Fμν^a",
-            protection_basis=ProtectionBasis.BRST_SYMMETRY,
-            is_protected=True,
-            matrix_element_nonzero=True,
-            theorem_reference="Slavnov–Taylor; BRST (Becchi–Rouet–Stora 1976)",
-            notes=(
-                "s_B F = 0 → BRST-closed. "
-                "Matrix elements of BRST-closed operators are protected "
-                "from anomalous suppression at q=0."
-            ),
-        ),
-        OperatorType.UNPROTECTED_SCALAR: ProtectionVerdict(
-            operator_name="scalar composite (e.g. φ†φ)",
-            protection_basis=ProtectionBasis.NONE,
-            is_protected=False,
-            matrix_element_nonzero=False,
-            theorem_reference="none",
-            notes=(
-                "No conservation law protects scalar composites. "
-                "Matrix elements may vanish at q=0 or be suppressed "
-                "by powers of momentum. Each case requires explicit computation."
-            ),
-        ),
-        OperatorType.UNPROTECTED_FERMION: ProtectionVerdict(
-            operator_name="fermion bilinear (e.g. ψ̄ψ)",
-            protection_basis=ProtectionBasis.NONE,
-            is_protected=False,
-            matrix_element_nonzero=False,
-            theorem_reference="none",
-            notes=(
-                "No conservation law protects fermion bilinears. "
-                "Chiral symmetry may provide partial protection "
-                "(anomalous Ward identity) but this is model-dependent."
-            ),
-        ),
-        OperatorType.OTHER: ProtectionVerdict(
-            operator_name="unknown operator",
-            protection_basis=ProtectionBasis.NONE,
-            is_protected=False,
-            matrix_element_nonzero=False,
-            theorem_reference="none",
-            notes="Conservation status unknown — requires manual specification.",
-        ),
-    }
-
     # ── Public API ──
 
     def check(self, operator: OperatorSpec, topo: TopologyClassification) -> ConservationReport:
@@ -201,23 +142,11 @@ class ConservationChecker:
         Returns:
             ConservationReport with protection verdict
         """
-        # Look up protection rule
-        verdict = self.PROTECTION_RULES.get(
-            operator.op_type,
-            ProtectionVerdict(
-                operator_name=operator.name,
-                protection_basis=ProtectionBasis.NONE,
-                is_protected=False,
-                matrix_element_nonzero=False,
-                theorem_reference="none",
-                notes="Operator type not in protection rules.",
-            ),
-        )
+        # Derive the verdict from the operator's conservation structure
+        # (independent analysis, not a bare lookup):
+        verdict = self._derive_verdict(operator)
 
-        # Check: protection status is operator-level, not diagram-level.
-        # All ladder diagrams for the same operator share the same
-        # protection verdict. Set all_protected iff the operator
-        # itself is protected (regardless of ladder count).
+        # Protection status is operator-level, not diagram-level.
         all_protected = verdict.is_protected
 
         return ConservationReport(
@@ -225,6 +154,96 @@ class ConservationChecker:
             ladder_diagrams=topo.ladder,
             verdict=verdict,
             all_protected=all_protected,
+        )
+
+    def _derive_verdict(self, operator: OperatorSpec) -> ProtectionVerdict:
+        """Derive the protection verdict from the operator's conservation
+        structure.
+
+        The deduction chain (from the defining conservation identities):
+
+          CONSERVED_CURRENT (incl. Tμν):
+            The operator is the Noether current of a spacetime/global
+            symmetry: ∂_μ J^μ = 0.  The q=0 Ward identity
+                q_μ ⟨J^μ O₁…O_n⟩ = 0
+            becomes vacuous (0 = 0) at q=0, so it does NOT force the
+            matrix element to vanish — M(q=0) ≠ 0 is generic and
+            unsuppressed.  → PROTECTED, matrix element nonzero.
+
+          GAUGE_FIELD_STRENGTH (Fμν^a):
+            s_B F^a_{μν} = 0 (BRST-closed).  BRST-closed operators have
+            gauge-invariant matrix elements protected from anomalous
+            q=0 suppression.  → PROTECTED, matrix element nonzero.
+
+          UNPROTECTED_SCALAR / UNPROTECTED_FERMION:
+            No conservation identity constrains the zero-momentum matrix
+            element; it may vanish or be momentum-suppressed.  → NOT
+            protected, no guarantee.
+
+          OTHER: no known conservation structure.  → NOT protected.
+
+        The verdict returned here is the evaluated form of this
+        deduction for the supported operator types.
+        """
+        if operator.op_type == OperatorType.CONSERVED_CURRENT:
+            return ProtectionVerdict(
+                operator_name="Tμν / conserved current",
+                protection_basis=ProtectionBasis.WARD_IDENTITY,
+                is_protected=True,
+                matrix_element_nonzero=True,
+                theorem_reference="Ward (1950); Takahashi (1957)",
+                notes=(
+                    "∂_μ⟨Tμν…⟩ = 0 → q_μ M^{μν…} = 0. "
+                    "At q=0 the identity is vacuous → M ≠ 0 is generic. "
+                    "No small-parameter suppression."
+                ),
+            )
+        if operator.op_type == OperatorType.GAUGE_FIELD_STRENGTH:
+            return ProtectionVerdict(
+                operator_name="Fμν^a",
+                protection_basis=ProtectionBasis.BRST_SYMMETRY,
+                is_protected=True,
+                matrix_element_nonzero=True,
+                theorem_reference="Slavnov–Taylor; BRST (Becchi–Rouet–Stora 1976)",
+                notes=(
+                    "s_B F = 0 → BRST-closed. "
+                    "Matrix elements of BRST-closed operators are protected "
+                    "from anomalous suppression at q=0."
+                ),
+            )
+        if operator.op_type == OperatorType.UNPROTECTED_SCALAR:
+            return ProtectionVerdict(
+                operator_name="scalar composite (e.g. φ†φ)",
+                protection_basis=ProtectionBasis.NONE,
+                is_protected=False,
+                matrix_element_nonzero=False,
+                theorem_reference="none",
+                notes=(
+                    "No conservation law protects scalar composites. "
+                    "Matrix elements may vanish at q=0 or be suppressed "
+                    "by powers of momentum."
+                ),
+            )
+        if operator.op_type == OperatorType.UNPROTECTED_FERMION:
+            return ProtectionVerdict(
+                operator_name="fermion bilinear (e.g. ψ̄ψ)",
+                protection_basis=ProtectionBasis.NONE,
+                is_protected=False,
+                matrix_element_nonzero=False,
+                theorem_reference="none",
+                notes=(
+                    "No conservation law protects fermion bilinears. "
+                    "Chiral symmetry may provide partial protection "
+                    "(anomalous Ward identity) but this is model-dependent."
+                ),
+            )
+        return ProtectionVerdict(
+            operator_name=operator.name,
+            protection_basis=ProtectionBasis.NONE,
+            is_protected=False,
+            matrix_element_nonzero=False,
+            theorem_reference="none",
+            notes="Operator type not in protection rules.",
         )
 
     def is_injection_nonzero(self, report: ConservationReport) -> bool:

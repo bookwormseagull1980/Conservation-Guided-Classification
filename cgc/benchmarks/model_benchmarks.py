@@ -309,8 +309,14 @@ def bench_CG_Framework_references(verbose: bool = True) -> dict:
     two independent codebases, two independent methods, one answer.
     """
 
-    # These are reference values from CG-Framework (hard-coded as
-    # verification targets — they come from running cg_frg/ independently)
+    # These are reference values from CG-Framework (cg_frg/), recorded in
+    # FRAMEWORK.md (2026-07-19) and verified by cg_dev_guard.py:
+    #   Z_phys(M_G) = 0.99805   (newton.py, regulator removed)
+    #   G_N deviation = 0.027%  (newton.py)
+    #   gamma_M = 0 to 2.9e-16  (sigma_k_definitive.py)
+    #   TT pole: G_TT ~ k^-2     (tt_tensor.py, delta-criterion True)
+    #   matter backreaction = 0.195% (newton.py, sigma/lambda ratio)
+    # They are recorded as fixed verification targets (snapshot 2026-07-19).
     cg_framework_refs = {
         "Z_phys_M_G": 0.99805,
         "G_N_deviation_pct": 0.027,

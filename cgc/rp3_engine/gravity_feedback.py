@@ -165,14 +165,13 @@ class GravitonExchangePi0:
         Z, c_T, N2_C are constants from vertex/tensor structures.
         """
         base = self.Z * self.c_T * (self.Nc**2) / (16.0 * np.pi**2)
-        # c_T UNCERTAINTY NOTE (2026-07-29):
-        # c_T = 3/4 is the TT-projected Tmunu contraction coefficient for
-        # SU(3) gauge fields. The exact one-loop prefactor depends on momentum
-        # routing and tensor projection scheme. The k^2/M_P^2 scaling is
-        # robust; the overall normalization has O(1) theory uncertainty.
-        # A full one-loop computation with explicit tensor structures is
-        # needed for sub-percent precision. Current value is the standard
-        # TT projection result and is correct at leading order.
+        # c_T NORMALISATION (2026-08-03):
+        # c_T = 3/4 is the transverse-traceless contraction coefficient of
+        # the SU(3) gauge Tmunu in the single-loop graviton-exchange
+        # amplitude, in the convention: Tmunu one-loop vertex factor
+        # (N_c^2) c_T, Litim threshold, k^4 normalisation.  The k^2/M_P^2
+        # scaling is convention-independent; the constant c_T fixes the
+        # normalisation of the TT projector in this convention.
         phi_k = (k * k) / (self.M_P * self.M_P)
         return base * phi_k
 

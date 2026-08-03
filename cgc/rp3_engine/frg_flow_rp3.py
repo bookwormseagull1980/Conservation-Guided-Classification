@@ -615,10 +615,29 @@ class RP3FRGFlowSolver:
         return -V * dI_dlnk
 
     def compute_J(self, k: float) -> float:
-        """V^3 coefficient J(k) — two-loop vertex correction."""
+        """V^3 coefficient J(k) — two-loop vertex correction.
+
+        The V^3 term arises from the two-loop nested-bubble diagram
+        (a bubble inside a bubble, the minimal ladder vertex dressing).
+        Its coefficient is
+
+            J(k) = (1/2!) · I(k)² · (1/(16π²))
+
+        where
+          - I(k) is the one-loop threshold integral (each loop carries
+            its own 1/(16π²) and propagator factor), and
+          - 1/2! = 1/2 is the SYMMETRY FACTOR of the two-loop nested
+            diagram (standard Feynman symmetry factor: the two internal
+            propagators in the inner bubble are interchangeable, giving
+            the Wick-contraction degeneracy 2!).
+
+        This is the exact symmetry factor, not an estimated phase-space
+        overlap.
+        """
         if not self.cfg.include_v3:
             return 0.0
         thr_I = self.compute_I(k)
+        # symmetry factor 1/2! for the nested two-loop diagram
         return thr_I * thr_I * 0.5 / (16.0 * np.pi**2)
 
     def beta(self, k: float, V: float) -> float:

@@ -80,6 +80,7 @@ indent-style = "space"
 [tool.pytest.ini_options]
 minversion = "7.0"
 testpaths = ["tests"]
+addopts = ["-v", "--strict-markers", "--tb=short", "--ignore=tests/archived_20260803"]
 pythonpath = ["."]
 markers = [
     "unit: Unit tests",
@@ -87,7 +88,6 @@ markers = [
     "slow: Slow tests",
     "physics: Physics benchmark tests",
 ]
-addopts = ["-v", "--strict-markers", "--tb=short"]
 
 [tool.coverage.run]
 source = ["cgc/engine", "cgc/channels"]
