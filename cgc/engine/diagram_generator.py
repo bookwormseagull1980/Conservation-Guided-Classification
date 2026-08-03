@@ -154,7 +154,9 @@ class DiagramGenerator:
 
     Current capability:
       - All operator types at one-loop: enumeration from SM field content ✅
-      - Multi-loop: QGRAF backend only (not yet available locally)
+      - Multi-loop: builtin multi-loop generator (multi_loop_generator.py)
+        for sunset/double-bubble/figure-8 topologies; QGRAF backend as
+        an alternative external option
     """
 
     # Expected one-loop diagram counts derived from SM field coupling rules.

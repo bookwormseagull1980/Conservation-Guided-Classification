@@ -132,7 +132,7 @@ class GravitonExchangePi0:
         self.Nc = Nc
         self.Z = Z
         self.M_P = M_P
-        self.c_T = 3.0 / 4.0  # TT-projected Tmunu contraction
+        self.c_T = 3.0 / 4.0  # effective TT contraction (convention of this component)
         self._spectrum = RP3Spectrum(L_RP3)
 
     def estimate_pi0_grav(self) -> float:
@@ -165,13 +165,16 @@ class GravitonExchangePi0:
         Z, c_T, N2_C are constants from vertex/tensor structures.
         """
         base = self.Z * self.c_T * (self.Nc**2) / (16.0 * np.pi**2)
-        # c_T NORMALISATION (2026-08-03):
-        # c_T = 3/4 is the transverse-traceless contraction coefficient of
-        # the SU(3) gauge Tmunu in the single-loop graviton-exchange
-        # amplitude, in the convention: Tmunu one-loop vertex factor
-        # (N_c^2) c_T, Litim threshold, k^4 normalisation.  The k^2/M_P^2
-        # scaling is convention-independent; the constant c_T fixes the
-        # normalisation of the TT projector in this convention.
+        # c_T: effective TT contraction coefficient of the SU(3) gauge
+        # Tmunu in the single-loop graviton-exchange amplitude, in the
+        # convention of this RP3 cross-validation component:
+        #   g2_grav_eff = Z * c_T * N_c^2 / (16 pi^2) * (k^2/M_P^2),
+        # with the Litim threshold and k^4 normalisation.  The k^2/M_P^2
+        # scaling is convention-independent; the constant c_T = 3/4 fixes
+        # the overall normalisation of the effective vertex in this
+        # convention (it absorbs the TT-projection normalisation, the
+        # spin-1 stress-tensor two-point normalisation and the colour
+        # factor into one convention-specific coefficient).
         phi_k = (k * k) / (self.M_P * self.M_P)
         return base * phi_k
 
