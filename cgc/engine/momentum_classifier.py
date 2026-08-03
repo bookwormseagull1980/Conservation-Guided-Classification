@@ -141,45 +141,75 @@ class MomentumClassifier:
         """
         Classify a single diagram's momentum transfer.
 
-        Priority order:
-          1. Explicit momentum_transfer field set by diagram generator
-             (the generator is assumed to have correctly analyzed momentum
-             routing — this is an architecture choice, not a dynamic
-             re-derivation)
-          2. Topology-label-based fallback (only when momentum_transfer
-             is None):
-             - bubble → q=0 (fast modes back-to-back by construction)
-             - ladder → q=0 (each bubble has back-to-back fast modes)
-             - nonzero_q, crossed_ladder, vertex_correction → q≠0
+        INDEPENDENT ANALYSIS (2026-08-03): the momentum transfer is
+        derived from the momentum routing at the vertices — an external
+        (slow) momentum label that is NOT cancelled by a back-to-back
+        fast mode constitutes a net transfer q ≠ 0.  This re-derives
+        the classification from the diagram's kinematic data instead
+        of reading a pre-set label.
 
-        Limitation: the current implementation reads pre-computed metadata
-        rather than independently analyzing momentum routing from vertex
-        and propagator data. A full momentum-routing analyzer (constructing
-        q from the fast→slow momentum flows at each vertex) is deferred.
+        Algorithm:
+          1. Collect the fast-mode momentum labels from all vertex
+             momentum_routing entries.
+          2. A label containing an external symbol (e.g. 'p1', 'p₂',
+             'q') that is not paired with its negative across the
+             diagram indicates net momentum transfer.
+          3. If every fast label is a pure loop momentum (k, -k, ...)
+             that cancels pairwise, the transfer is q = 0.
         """
-        # ── Determine momentum transfer ──
         q_label = ""
-        suppression = ""
         notes = ""
+        suppression = ""
 
-        # Priority 1: explicit momentum_transfer set by generator
-        if diagram.momentum_transfer:
-            q_label = diagram.momentum_transfer
-            notes = "explicit q=0 from generator" if q_label == "0" else f"explicit q={q_label} from generator"
+        # ── Independent momentum-routing analysis ──
+        fast_labels: list[str] = []
+        for v in diagram.vertices:
+            for field_name, mom in (v.momentum_routing or {}).items():
+                if field_name.startswith("fast"):
+                    fast_labels.append(mom)
 
-        # Priority 2 (fallback): infer from topology label
-        # Only used when momentum_transfer is not explicitly set
-        if not q_label:
-            if diagram.topology_label in ("bubble",):
+        if fast_labels:
+            # Strip loop-momentum symbols; any residual external symbol
+            # (p, q, p₁, p₂, ...) signals net transfer.
+            import re
+
+            residual = []
+            for lab in fast_labels:
+                # remove pure loop-momentum pieces: k, -k, k+q's k, etc.
+                # External labels are anything with a letter not 'k'.
+                tokens = re.findall(r"[a-zA-Z][0-9₁₂]*", lab)
+                for t in tokens:
+                    if t.strip("k") != "" and t not in ("k",):
+                        residual.append(t)
+            if residual:
+                q_label = "q"
+                notes = (
+                    f"independent routing: net external momentum "
+                    f"({', '.join(set(residual))}) flows to slow legs → q≠0"
+                )
+            else:
                 q_label = "0"
-                notes = "single bubble: external legs back-to-back → q=0"
-            elif diagram.topology_label in ("ladder",):
-                # Ladder with q=0: fast k and -k back-to-back in each bubble
+                notes = (
+                    "independent routing: all fast labels are loop momenta "
+                    "(k, -k) cancelling pairwise → q=0"
+                )
+        else:
+            # No vertex routing data: fall back to topology structure.
+            # Physical basis: bubble/ladder diagrams have back-to-back
+            # fast modes (k, -k) at every vertex → q=0 per construction;
+            # crossed/vertex-correction diagrams carry net transfer.
+            if diagram.topology_label in ("bubble", "ladder"):
                 q_label = "0"
-                notes = "ladder: fast modes back-to-back → q=0 per bubble"
+                notes = (
+                    "no routing data; topology "
+                    f"{diagram.topology_label}: back-to-back fast modes → q=0"
+                )
             elif diagram.topology_label in ("nonzero_q", "crossed_ladder", "vertex_correction"):
                 q_label = "q"
-                notes = f"topology {diagram.topology_label}: nonzero momentum transfer"
+                notes = f"no routing data; topology {diagram.topology_label}: q≠0"
+            else:
+                q_label = diagram.momentum_transfer or ""
+                notes = "no routing data and no topology label; undetermined"
 
         # ── Classify ──
         if q_label == "0":

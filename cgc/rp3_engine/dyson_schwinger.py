@@ -183,15 +183,18 @@ class DysonSchwingerSolver:
         if self.V_crit_tadpole * (1 - 1e-12) > V:
             return 0.0, True
 
-        # Initial guess
-        x = self.Pi0_bare * (V - self.V_crit_tadpole) * 0.1
+        # Initial guess: the tadpole (x=0) value of the gap equation
+        # x₀ = V·S(0) — the physical zero-field starting point of the
+        # self-consistent iteration (no ad-hoc scale factor).
+        x = V * self._S(0.0)
 
         for _i in range(max_iter):
-            S_val = self._S(x)
-            x_new = V * S_val
-            x = 0.3 * x_new + 0.7 * x
-            if abs(x_new - x) / max(abs(x), 1e-30) < tol:
-                return max(x, 0.0), True
+            x_new = V * self._S(x)
+            # under-relaxed update for numerical stability
+            x_mix = 0.3 * x_new + 0.7 * x
+            if abs(x_mix - x) / max(abs(x), 1e-30) < tol:
+                return max(x_mix, 0.0), True
+            x = x_mix
 
         return max(x, 0.0), False
 
