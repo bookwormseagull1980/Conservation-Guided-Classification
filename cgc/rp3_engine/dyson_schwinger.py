@@ -168,12 +168,13 @@ class DysonSchwingerSolver:
         self.V_native = solver.native_v
 
     def _S(self, x: float) -> float:
-        """S(x) = sum w_i / (y_i + x)."""
-        return float(np.sum(self._w / (self._y + max(x, -1e-30))))
+        """S(x) = sum w_i / (y_i + x), x ≥ 0 (physical condensate)."""
+        xp = max(x, 0.0)
+        return float(np.sum(self._w / (self._y + xp)))
 
     def _Pi(self, x: float) -> float:
-        """Pi(x) = sum w_i / (y_i + x)^2."""
-        d = self._y + max(x, -1e-30)
+        """Pi(x) = sum w_i / (y_i + x)^2, x ≥ 0."""
+        d = self._y + max(x, 0.0)
         return float(np.sum(self._w / d**2))
 
     def solve_gap(self, V: float, max_iter: int = 200, tol: float = 1e-12) -> tuple[float, bool]:
@@ -185,14 +186,17 @@ class DysonSchwingerSolver:
 
         # Initial guess: the tadpole (x=0) value of the gap equation
         # x₀ = V·S(0) — the physical zero-field starting point of the
-        # self-consistent iteration (no ad-hoc scale factor).
+        # self-consistent iteration.
         x = V * self._S(0.0)
 
         for _i in range(max_iter):
             x_new = V * self._S(x)
+            if not np.isfinite(x_new):
+                # divergence (V at/near critical): report non-convergence
+                return max(x, 0.0), False
             # under-relaxed update for numerical stability
             x_mix = 0.3 * x_new + 0.7 * x
-            if abs(x_mix - x) / max(abs(x), 1e-30) < tol:
+            if abs(x_mix - x) / max(abs(x_mix), 1e-30) < tol:
                 return max(x_mix, 0.0), True
             x = x_mix
 
