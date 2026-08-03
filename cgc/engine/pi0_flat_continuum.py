@@ -116,14 +116,19 @@ def _ju_fields() -> list:
     J^mu = sum_f Q_f psibar_f gamma^mu psi_f couples exclusively to
     charged fermions (neutrinos carry Q=0 and are excluded).  The
     bubble carries the charge square Q_f^2 of each species.
+
+    NOTE (2026-08-03): the kernel values below ARE the charge squares
+    Q_f^2 (e.g. u: (2/3)^2 = 4/9).  The variable is named Q_SQ to
+    remove the earlier ambiguity where Q_f vs Q_f^2 was unclear.
     """
-    Q = {"u": 4.0 / 9.0, "d": 1.0 / 9.0, "s": 1.0 / 9.0,
-         "c": 4.0 / 9.0, "b": 1.0 / 9.0, "t": 4.0 / 9.0,
-         "e": 1.0, "mu": 1.0, "tau": 1.0}
+    Q_SQ = {"u": 4.0 / 9.0, "d": 1.0 / 9.0, "s": 1.0 / 9.0,
+            "c": 4.0 / 9.0, "b": 1.0 / 9.0, "t": 4.0 / 9.0,
+            "e": 1.0, "mu": 1.0, "tau": 1.0}
     dof = {"u": 12, "d": 12, "s": 12, "c": 12, "b": 12, "t": 12,
            "e": 4, "mu": 4, "tau": 4}
     return [
-        Field(f"{name} (Q^2={Q[name]:.4g})", True, dof[name], kernel=Q[name])
+        Field(f"{name} (Q^2={Q_SQ[name]:.4g})", True, dof[name],
+              kernel=Q_SQ[name])
         for name in ("u", "d", "s", "c", "b", "t", "e", "mu", "tau")
     ]
 

@@ -266,17 +266,10 @@ class CGCPipeline:
 
         # ── Stage 5: Resummation ──
         try:
-            # Auto-FRG: compute Pi0(0) for protected operators if not provided
+            # Pi0(0): use the caller-provided value (flat-space single-bubble,
+            # pi0_flat_continuum.py).  RP3 cross-validation is a SEPARATE
+            # component (cgc/rp3_engine/) and is NOT invoked here.
             _Pi0 = Pi0_zero
-            if _Pi0 is None and report.conservation_report.verdict.is_protected:  # type: ignore[assignment]
-                from .frg_trace_density import FRGTraceDensity
-
-                frg = FRGTraceDensity()
-                ot = operator.op_type.name
-                if ot == "CONSERVED_CURRENT":
-                    _Pi0 = frg.compute_pi0_tmunu_rp3().pi0_dimensionless
-                elif ot == "GAUGE_FIELD_STRENGTH":
-                    _Pi0 = frg.compute_pi0_f2().pi0_dimensionless
 
             # Auto-crossed-ratio: compute r = Σ_crossed/(V·Π₀) from crossed_ladder_f2
             from .crossed_ladder_f2 import compute_crossed_ratio_explicit
