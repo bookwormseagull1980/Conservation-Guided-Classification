@@ -86,6 +86,16 @@ The repository contains two distinct Π₀ computations, clearly separated:
 Only the signs of Π₀ are classification-relevant; magnitudes are
 scheme-dependent (as stated in the paper).
 
+### Isolation guarantee
+
+The flat-space CGC core (`cgc/engine/`) is fully independent of the
+RP³ subpackage: the paper's Π₀ values are fixed by SM field content,
+spin-statistics and charges (bare normalisation, no couplings, no
+gravity factors).  `cgc/engine/` imports nothing from `cgc/rp3_engine/`;
+the RP³ engine (including its convention-specific coefficient
+`c_T = 3/4` in `gravity_feedback.py`) is used only for sign-level
+cross-validation and never feeds the core classification.
+
 ## CLI Reference
 
 ### `cgc-run` — Classify an operator
