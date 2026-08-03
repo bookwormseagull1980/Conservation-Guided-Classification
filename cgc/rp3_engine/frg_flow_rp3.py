@@ -5,9 +5,9 @@ coupling V_k using the EXACT discrete Laplacian spectrum on RP3.
 
 Physics motivation
 ------------------
-The continuous-space FRG flow solver (frg_flow.py) gave beta(V)>0
-at all scales, making V IR-free. But that analysis used continuous
-momentum integrals — it missed the discrete spectrum of RP3.
+A continuous-space FRG flow analysis gives beta(V)>0 at all scales,
+making V IR-free.  But that analysis used continuous momentum
+integrals — it missed the discrete spectrum of RP3.
 
 On RP3 (Camporesi 1990):
   - Scalar (spin-0):  lambda_J = J(J+2)/L^2,  d_J = (J+1)^2,  J=0,2,4,...
@@ -566,7 +566,7 @@ class FlowResult:
 class RP3FRGFlowSolver:
     """FRG flow solver using RP3 discrete spectrum.
 
-    Key difference from FRGFlowSolver (frg_flow.py):
+    Key features:
     - Uses discrete mode summation over Camporesi spectrum
     - At k < M_CURV, the trace density drops sharply as modes run out
     - This can fundamentally change beta sign and flow behavior
@@ -881,23 +881,28 @@ class RP3FRGFlowSolver:
 
         As L -> infinity, M_CURV = M_P/L -> 0.
         The discrete spectrum should become dense and the trace density
-        should approach the continuous-space result.
+        should approach the continuous-space Weyl estimate.
+
+        2026-08-03: frg_flow.py (ad-hoc coefficients) removed.  The
+        continuous limit is computed from the Weyl asymptotic estimate
+        I_cont ≈ (1/(16π²)) Σ_f N_f · dof_f · (k²/(k²+M²))² (Litim
+        threshold, massless UV), a first-principles formula.
         """
         # Compare: L = 2.44 (physical) vs L = 100 (near-flat)
         I_physical = self.compute_I(M_G)
 
-        # For L -> inf, use continuous Litim estimate
-        try:
-            from .frg_flow import FlowConfig as OldConfig
-            from .frg_flow import FRGFlowSolver
-
-            old_cfg = OldConfig(operator_name=self.cfg.operator_name)
-            old_solver = FRGFlowSolver(old_cfg)
-            I_continuous = old_solver.compute_threshold_integral(M_G)
-        except (ImportError, Exception):
-            # Fallback: use asymptotic Weyl estimate
-            # I_continuous ≈ N_f * dof_per_f * k^4/(M_P^4)
-            I_continuous = 0.0357  # from frg_flow.py reference run
+        # Continuous Litim estimate (first-principles Weyl formula):
+        # I_cont = (1/16π²) Σ_f dof_f · [2k²/(k²+m²)] / 2
+        k = M_G
+        if "F2" in self.cfg.operator_name or "F²" in self.cfg.operator_name:
+            fields = f2_field_content()
+        else:
+            fields = tmunu_field_content()
+        total = 0.0
+        for f in fields:
+            thr = 2.0 * k * k / (k * k + f.mass_gev**2)
+            total += f.dof * thr
+        I_continuous = total / (16.0 * np.pi**2) / 2.0
 
         result: dict[str, Any] = {
             "I_RP3_L244": I_physical,
@@ -918,7 +923,11 @@ class RP3FRGFlowSolver:
         # Check high-k behavior: should approach continuous
         k_high = 10 * M_CURV
         I_rp3_high = self.compute_I(k_high)
-        I_cont_high = old_solver.compute_threshold_integral(k_high)
+        total_high = 0.0
+        for f in fields:
+            thr = 2.0 * k_high * k_high / (k_high * k_high + f.mass_gev**2)
+            total_high += f.dof * thr
+        I_cont_high = total_high / (16.0 * np.pi**2) / 2.0
         result["I_RP3_high_k"] = I_rp3_high
         result["I_continuous_high_k"] = I_cont_high
         result["ratio_high_k"] = I_rp3_high / I_cont_high if I_cont_high != 0 else float("inf")

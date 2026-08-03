@@ -61,11 +61,6 @@ MODULE_REFS = {
         "    Coupling enhancement from trace density: Wetterich equation\n"
         "    Litim (2001): regulator-dependence < 0.001%\n"
     ),
-    "frg_flow.py": (
-        "References\n"
-        "    Beta function integration: Wetterich (1993)\n"
-        "    LPA approximation: Berges-Tetradis-Wetterich (2002)\n"
-    ),
     "gravity_feedback.py": (
         "References\n"
         "    Graviton backreaction on FRG flow: Reuter (1998), Phys. Rev. D 57, 971\n"
