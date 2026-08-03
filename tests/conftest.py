@@ -8,9 +8,9 @@ import sys
 import numpy as np
 
 # Ensure cgc is importable even when running tests from their dir
-_CGC_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_CGC_ROOT = os.path.dirname(os.path.abspath(__file__))  # tests/ dir -> project root
 if _CGC_ROOT not in sys.path:
-    sys.path.insert(0, os.path.dirname(_CGC_ROOT))
+    sys.path.insert(0, _CGC_ROOT)
 
 # ── shared constants (matching prod) ──────────────────────
 M_P = 2.435300e18  # GeV — reduced Planck mass

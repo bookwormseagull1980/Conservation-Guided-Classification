@@ -28,15 +28,15 @@ jobs:
           pip install pytest hypothesis
 
       - name: Run unit tests (L0)
-        run: python -m pytest cgc/tests/ -v --tb=short -q
+        run: python -m pytest tests/ -v --tb=short -q
         timeout-minutes: 10
 
       - name: Run property-based tests
-        run: python cgc/tests/test_properties.py
+        run: python tests/test_properties.py
         timeout-minutes: 10
 
       - name: Run edge case tests
-        run: python cgc/tests/test_edge_cases.py
+        run: python tests/test_edge_cases.py
         timeout-minutes: 10
 
       - name: Run cgc-verify (L1+L2+L4)

@@ -1,1 +1,1 @@
-# tests package
+"""CGC unit tests."""

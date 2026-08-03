@@ -79,7 +79,7 @@ indent-style = "space"
 # ═══════════════════════════════════════════════════════════════════
 [tool.pytest.ini_options]
 minversion = "7.0"
-testpaths = ["cgc/tests"]
+testpaths = ["tests"]
 pythonpath = ["."]
 markers = [
     "unit: Unit tests",

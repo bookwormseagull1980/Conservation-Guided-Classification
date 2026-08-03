@@ -61,12 +61,12 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          python cgc/tests/run_all.py
+          python tests/run_all.py
 
       - name: Pytest with coverage
         run: |
           pip install pytest-cov
-          pytest cgc/tests/ \
+          pytest tests/ \
             --cov=cgc.engine \
             --cov=cgc.channels \
             --cov-report=term-missing \
