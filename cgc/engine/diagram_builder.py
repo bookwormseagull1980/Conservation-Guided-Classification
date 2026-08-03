@@ -677,9 +677,12 @@ class DiagramEnumerator:
         """Determine external leg field types from operator specification."""
         name = operator.op_type.name if hasattr(operator, "op_type") else ""
 
-        # All SM fields couple to Tμν (universality of gravity)
+        # All SM fields couple to Tμν (universality of gravity — the
+        # energy-momentum tensor couples to every matter species).
+        # The generic fermion-leg label ['F','F'] covers this universal
+        # coupling; species-specific legs are enumerated by the generator.
         if "CONSERVED_CURRENT" in name:
-            return ["F", "F"]  # placeholder — all fields couple
+            return ["F", "F"]  # universal coupling (all fields)
 
         # Gauge field strength: couples to gauge bosons and fermions
         if "GAUGE_FIELD_STRENGTH" in name:

@@ -76,11 +76,12 @@ The repository contains two distinct Π₀ computations, clearly separated:
    **bare normalisation** (no coupling constants), massless limit,
    spin-statistics-weighted mode counting. No external parameters.
    F² = −0.3546, G² = +0.1013, J^μ = −0.2026, Tμν = 0 in flat spacetime.
-2. **RP³ FRG cross-validation** (`cgc/engine/frg_flow_rp3.py`,
-   `frg_trace_density.py`, `self_consistent_dyson.py`, `cgc/benchmarks/`) —
-   the FRG engine on the compact internal space, reported separately
-   (Paper 3 lineage). Its `pi0_bare_ir` values are geometry-dependent and
-   agree with the classification only at the level of signs.
+2. **RP³ FRG cross-validation** (`cgc/rp3_engine/` — `frg_flow_rp3.py`,
+   `frg_trace_density.py`, `self_consistent_dyson.py`, etc.) —
+   the FRG engine on the compact internal space, kept as a SEPARATE
+   subpackage (Paper 3 lineage), not part of the flat-space CGC core.
+   Its `pi0_bare_ir` values are geometry-dependent and agree with the
+   classification only at the level of signs.
 
 Only the signs of Π₀ are classification-relevant; magnitudes are
 scheme-dependent (as stated in the paper).
@@ -129,15 +130,18 @@ Development dependencies: pytest, hypothesis, mypy, ruff.
 
 ```
 cgc/
-├── engine/          # Core classification engine
+├── engine/          # Core classification engine (FLAT SPACETIME)
 │   ├── diagram_generator.py    # Feynman diagram generation
 │   ├── momentum_classifier.py  # Momentum transfer (q=0 vs q≠0)
 │   ├── topology_classifier.py  # Topology (bubble vs ladder)
 │   ├── conservation_checker.py # Conservation law assessment
 │   ├── resummation.py          # Ladder resummation
 │   ├── pi0_flat_continuum.py   # Flat-space single-bubble Π₀ (paper values, v3)
-│   ├── frg_flow_rp3.py         # RP³ FRG cross-validation (separate component)
 │   └── pipeline.py             # Full classification pipeline
+├── rp3_engine/      # RP³ FRG cross-validation (SEPARATE subpackage)
+│   ├── frg_flow_rp3.py         # RP³ FRG flow solver
+│   ├── frg_trace_density.py    # RP³ trace density
+│   └── ...                     # Paper 3 lineage, not part of CGC core
 ├── channels/        # Operator-specific configurations
 │   ├── tmunu_spin2.py
 │   ├── gauge_field.py

@@ -21,8 +21,8 @@ Three key distinctions from fundamental TT modes:
 2. Fundamental TT on RP3: mass gap m2 = 6*M2_CURV at J=2
 3. The graviton exchange vertex is enhanced near the Tmunu critical point
 
-Problem 1 fix (2026-07-29): Replace dimensional estimate with exact one-loop
-RP3 computation using the gauge Tmunu two-point function and Camporesi spectrum.
+The graviton exchange contribution is computed exactly at one loop on RP3
+using the gauge Tmunu two-point function and the Camporesi spectrum.
 
 Author: CGC Phase 5
 Date: 2026-07-29
@@ -106,8 +106,8 @@ class GravitonExchangePi0:
 
     Pi0_grav = (Z/M2_P) * int d4p/(2pi)4 * Tmunu * P_munurs * Trs / p2
 
-    Problem 1 fix (2026-07-29): replaced dimensional estimate with exact
-    one-loop RP3 computation.
+    The graviton exchange is computed as an exact one-loop RP3
+    computation (gauge Tmunu two-point function, Camporesi spectrum).
 
     The graviton exchange effectively adds a k-dependent extra coupling
     to the gauge field trace density:
@@ -136,10 +136,10 @@ class GravitonExchangePi0:
         self._spectrum = RP3Spectrum(L_RP3)
 
     def estimate_pi0_grav(self) -> float:
-        """Dimensional estimate of graviton exchange Pi0 (legacy).
+        """Tree-level dimensional estimate of graviton exchange Pi0.
 
-        This is the tree-level estimate used before Problem 1 fix.
-        Retained for comparison with exact computation.
+        Kept for comparison with the exact one-loop computation
+        (compute_pi0_grav_exact).
 
         Returns the dimensionless Pi0 (constant, no k-dependence).
         """
@@ -177,7 +177,7 @@ class GravitonExchangePi0:
         return base * phi_k
 
     def compute_pi0_grav_exact(self, k_uv: float = M_P, k_ir: float = 1.0, n_grid: int = 200) -> dict:
-        """Exact one-loop graviton exchange Pi0 on RP3 (Problem 1 fix).
+        """Exact one-loop graviton exchange Pi0 on RP3.
 
         Computes Pi_grav(k) = int_{k}^{k_UV} d_ln(k') * eta_grav(k')
 
@@ -242,7 +242,7 @@ class GravitonExchangePi0:
         """Compute graviton exchange Pi0 with Tmunu pole enhancement.
 
         Uses the exact RP3 one-loop result (compute_pi0_grav_exact)
-        instead of the legacy dimensional estimate.
+        instead of the tree-level dimensional estimate.
 
         Parameters
         ----------
@@ -253,7 +253,7 @@ class GravitonExchangePi0:
 
         Returns
         -------
-        dict with pi0_grav_exact, pi0_grav_tree (legacy), enhancement,
+        dict with pi0_grav_exact, pi0_grav_tree (tree-level estimate), enhancement,
               pi0_grav_enhanced
         """
         # Use exact one-loop result
@@ -430,7 +430,7 @@ class CombinedPi0F2:
 def run_gravity_feedback_analysis() -> dict:
     """Full gravity feedback analysis."""
     print("=" * 64)
-    print("  GRAVITY FEEDBACK ON F2 -- PHASE 5 (Problem 1 fixed)")
+    print("  GRAVITY FEEDBACK ON F2 -- PHASE 5")
     print("  Exact one-loop RP3 graviton exchange")
     print("=" * 64)
 
@@ -485,7 +485,7 @@ def run_gravity_feedback_analysis() -> dict:
     print(f"  Pi0_fundamental    = {analysis['Pi0_fundamental_IR']:+.4e}")
     print(f"  Pi0_grav (dimensional)  = {analysis['Pi0_grav_tree']:+.4e}")
     print(f"  Pi0_grav (exact 1-loop) = {analysis['Pi0_grav_exact_one_loop']:+.4e}")
-    print(f"  Pi0_total (legacy) = {analysis['Pi0_total_IR']:+.4e}")
+    print(f"  Pi0_total (tree-level estimate) = {analysis['Pi0_total_IR']:+.4e}")
     print(f"  Pi0_total (exact)  = {analysis['Pi0_total_with_exact']:+.4e}")
     print(f"  Sign flipped? {'YES' if analysis['sign_flipped'] else 'NO'}")
     print()

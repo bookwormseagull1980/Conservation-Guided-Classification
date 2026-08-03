@@ -38,8 +38,6 @@ M_CURV = M_P / L_RP3   # curvature mass scale [GeV] ~ 1e18
 G3_MG = 0.496          # SU(3): Cartan generator on EC connection (−0.40% vs SM)
 G2_MG = 0.516          # SU(2)_L: KV zero modes on RP3 (+1.6% vs SM)
 G1_MG = 0.6083          # U(1)_Y at M_G: KV + GUT normalization + κ=√(5/6) SM RGE back-fit
-# (2026-08-03: unified from the historical 0.666; the canonical value 0.6083
-#  includes the SM RGE back-fit and matches CG-Framework framework_params.py)
 
 # ── Channel coupling² (fixed convention) ────────────────────────────
 G3_SQ = G3_MG**2       # F², G² channel coupling² = 0.246

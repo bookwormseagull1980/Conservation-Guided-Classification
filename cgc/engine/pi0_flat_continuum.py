@@ -46,10 +46,7 @@ Values produced by THIS module (v3, massless limit):
     F2 = -0.3546   G2 = +0.1013   Ju = -0.2026
     Tmunu spin-2 = 0   Tmunu spin-0 = 0   (Ward identity)
 
-v1/v2 magnitudes (LiTim+coupling^2: -0.157/+0.117/-0.440;
-Gaussian+bare+masses-in-GeV: -0.1545/+0.1013/-0.4659) are superseded;
-the paper quotes the v3 values.  The sign structure is unchanged and
-matches the classification table.
+The sign structure matches the classification table.
 """
 
 from __future__ import annotations

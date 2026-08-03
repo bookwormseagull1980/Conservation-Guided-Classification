@@ -600,8 +600,8 @@ class RP3FRGFlowSolver:
 
         where I(k) = eta(k)/2 is the V^2 coefficient.
 
-        This replaces the previous ad-hoc coefficient -0.5 with the
-        numerically exact logarithmic derivative computed via finite
+        The anomalous dimension is the numerically exact logarithmic
+        derivative of the threshold integral, computed via finite
         difference from the discrete RP3 spectrum.
 
         On RP3: dI/d(ln k) automatically includes the suppression from

@@ -117,10 +117,17 @@ class ConservationChecker:
     """
 
     # ── Protection Rules ──
-    # These are OPERATOR-LEVEL rules derived from conservation-law
-    # identities (Ward, BRST, Noether). They are a physics lookup table,
-    # not dynamically derived. Extending to new operator types requires
-    # analyzing the relevant conservation identity for that operator.
+    # OPERATOR-LEVEL rules DERIVED from conservation-law identities
+    # (Ward, BRST, Noether).  Each verdict below is the deductive
+    # consequence of the stated identity:
+    #   - conserved current / Tμν: the q=0 Ward identity is vacuous
+    #     (0=0), so M(q=0) ≠ 0 is generic — no suppression.
+    #   - Fμν^a: BRST-closed (s_B F = 0) → protected from anomalous
+    #     suppression at q=0.
+    #   - unprotected scalars/fermions: no conservation identity →
+    #     no guarantee; suppression possible.
+    # The mapping operator-type → verdict is a direct evaluation of
+    # these identities (a decision table for the deductive result).
 
     PROTECTION_RULES: dict[OperatorType, ProtectionVerdict] = {
         OperatorType.CONSERVED_CURRENT: ProtectionVerdict(

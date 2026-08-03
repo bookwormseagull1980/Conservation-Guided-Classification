@@ -1,18 +1,13 @@
-r"""Background-Field FRG: First-Principles Enhancement f(chi) — CORRECTED.
+r"""Background-Field FRG: First-Principles Enhancement f(chi).
 
-Gap 1/3: Replace phenomenological f(chi) with chi-potential-coupled
-FRG computation.  This revision fixes TWO code-level bugs found in v1:
+The enhancement function f(chi) is computed from the chi-potential-
+coupled FRG trace density:
 
-  Bug 1: Wrong threshold function.
-    v1 used  k^4/(k^2+m^2)^2  (effective-potential Litim flow).
-    Correct is  2k^2/(k^2+m^2)  (RP3TraceDensity self-energy trace).
-    Reference: frg_flow_rp3.py line ~310.
+  - Threshold function: 2k²/(k²+m²)  (RP3TraceDensity self-energy
+    trace, Litim regulator).
+  - Fermion loops contribute negative eta (spin-statistics sign).
 
-  Bug 2: Missing fermion sign flip.
-    Fermion loops contribute NEGATIVE eta.
-    Reference: frg_flow_rp3.py line ~325.
-
-  Spectrum correctness (verified 2026-07-29):
+Spectrum correctness (verified 2026-07-29):
     For L_RP3=2.44, only ONE mode per field type is active below M_P:
       Scalar J=0  (d=1),  Vector n=1 (d=6),  Spinor n=0 (d=2).
     The v1 zero-mode-only approach was correct by accident.

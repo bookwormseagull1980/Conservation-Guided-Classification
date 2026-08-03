@@ -104,7 +104,8 @@ class CGCOperatorSpec:
 
     # Critical condition
     lambda_crit: float | None = None
-    """Critical coupling from cubic vertex condition (typically 4/27 ≈ 0.148)"""
+    """Critical coupling from the cubic-vertex condition: 4/27 ≈ 0.148
+    (the standard O(N) cubic-vertex critical value)."""
 
     v_native: float | None = None
     """Native (bare) coupling value at equilibrium geometry"""

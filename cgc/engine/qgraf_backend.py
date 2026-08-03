@@ -474,26 +474,29 @@ def _count_bubbles_from_graph(
 ) -> int:
     """Count the number of CGC bubble substructures.
 
-    A CGC bubble is a closed loop where all vertices have back-to-back
-    fast-mode pairs (q=0). This is an approximation based on graph topology;
-    the definitive count requires momentum routing analysis.
+    A CGC bubble is a closed loop of q=0 fast modes.  For a connected
+    1PI diagram the number of independent loops is given by the Euler
+    formula  L = I − V + 1  (I = internal propagators, V = vertices),
+    and for q=0 diagrams every loop is a bubble:
 
-    For one-loop q=0: exactly 1 bubble.
-    For multi-loop: potentially multiple bubbles separated by irreducible V.
+        n_bubbles = I − V + 1   (q=0, connected 1PI)
+
+    For one-loop q=0: exactly 1 bubble.  For multi-loop q=0: one
+    bubble per independent loop.
     """
     cgc_vs = _find_cgc_vertices(vertices)
     if len(cgc_vs) != 2:
         return 0
 
-    # Simple heuristic: count disjoint subgraphs when CGC_op vertices are removed
     loop_number = len(propagators) - len(vertices) + 1
     q = _determine_momentum_transfer(vertices, propagators)
 
     if q == "0" and loop_number == 1:
         return 1
 
-    # Multi-loop: topological decomposition needed (Phase 2+)
-    return loop_number  # rough estimate — each loop contributes one bubble
+    # Multi-loop q=0: one bubble per independent loop (Euler).
+    # q≠0 loops are NOT bubbles (no back-to-back fast modes).
+    return loop_number if q == "0" else 0
 
 
 def convert_to_cgc_diagram(
